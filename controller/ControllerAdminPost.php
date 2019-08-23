@@ -40,7 +40,6 @@ class ControllerAdminPost extends GenerateView
         $this->generateView("Post", null, 'post', $post);
     }
 
-
     //Ajouter un article
     public function addPost()
     {
@@ -62,4 +61,18 @@ class ControllerAdminPost extends GenerateView
         $this->generateView("AddPost");
     }
 
+    //Supprimer un article
+    public function delete($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $postId = $this->postManager->get($id);
+        $this->postManager->delete($postId);
+
+        $comment = $this->commentManager = new CommentManager();
+        $comment->deleteCommentInPost($id);
+
+        header('Location: index.php?p=adminpost#list');
+    }
 }
