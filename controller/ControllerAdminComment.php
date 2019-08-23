@@ -35,4 +35,19 @@ class ControllerAdminComment extends GenerateView
         $this->generateView("AdminCommentManager", null, 'comments', $comments);
     }
 
+    //Supprimer un commentaire
+    public function delete($id, $status = null)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $commentId = $this->commentManager->get($id);
+        $this->commentManager->delete($commentId);
+
+        if ($status === 1) {
+            header('Location: index.php?c=admincomment#list');
+        } elseif ($status === 0) {
+            header('Location: index.php?c=admincommentfilter#list');
+        }
+    }
 }
