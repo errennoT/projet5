@@ -36,4 +36,27 @@ class ControllerAdminMessage extends GenerateView
 
         $this->generateView("Message", null, 'message', $message);
     }
+    
+    //Répondre à un message
+    public function answerMessage($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $message = $this->messageManager->get($id);
+
+        if (!empty($_POST)) { //voir
+            $error = $this->messageManager->errorMessage(htmlentities($_POST['content']), "", "", "", "", "answer");
+
+            if (empty($error)) {
+                $data = $this->messageManager->sendMessage(htmlentities($_POST['content']), "", "", htmlentities($_POST['email']));
+                mail($data['email'], $data['subject'], $data['content']);
+                $this->messageManager->delete($message);
+
+                header('location: index.php?m=listmessage#list');
+            } else { //ajout d'un try catch
+                header('location: index.php?m=errormessage');
+            }
+        }
+    }
 }
