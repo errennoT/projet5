@@ -97,4 +97,26 @@ class ControllerAdminPost extends GenerateView
         }
         $this->generateView("EditPost", null, 'post', $post);
     }
+
+    //Status publié
+    public function published($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $postId = $this->postManager->get($id);
+        $this->postManager->published($postId);
+        header('Location: index.php?p=adminpost#list');
+    }
+
+    //Status brouillon
+    public function draft($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $postId = $this->postManager->get($id);
+        $this->postManager->draft($postId);
+        header('Location: index.php?p=adminpost#list');
+    }
 }
