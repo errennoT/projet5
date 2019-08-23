@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Projet5\\":"/opt/lampp/htdocs/Oo-projet5/"
+        }
+     }
+}
+
