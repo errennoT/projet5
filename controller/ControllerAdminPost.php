@@ -75,4 +75,26 @@ class ControllerAdminPost extends GenerateView
 
         header('Location: index.php?p=adminpost#list');
     }
+
+    //Modifier un article
+    public function editPost($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $post = $this->postManager->get($id);
+
+        if (!empty($_POST)) {
+            $error = $this->postManager->errorPost(htmlentities($_POST['title']), htmlentities($_POST['content']), htmlentities($_POST['chapo']), "update", htmlentities($_POST['author']));
+            if (empty($error)) {
+                $data = $this->postManager->sendPost(htmlentities($_POST['title']), htmlentities($_POST['content']), isset($_POST['publish']) ? true : false, $_POST['chapo'], htmlentities($_POST['author']), htmlentities($_POST['id']));
+                $post = new Post($data);
+                $this->postManager->update($post);
+                header('Location: index.php?p=adminpost#list');
+            } else {
+                $this->generateView("EditPost", $error, 'post', $post);
+            }
+        }
+        $this->generateView("EditPost", null, 'post', $post);
+    }
 }
