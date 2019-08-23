@@ -82,4 +82,28 @@ class ControllerAdminUser extends GenerateView
         $this->_userManager->unsetAdmin($userId);
         header('Location: index.php?u=adminuser#list');
     }
+
+    //Modifier un utilisateur
+    public function editUser($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $user = $this->_userManager->get($id);
+
+        if (!empty($_POST)) {
+            $error = $this->_userManager->getError($_POST['login'], $_POST['password'], $_POST['email']);
+            if (empty($error)) {
+                $data = $this->_userManager->register(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), htmlentities($_POST['id']));
+                $user = new User($data);
+                $this->_userManager->update($user);
+                header('Location: index.php?u=adminuser');
+            } else {
+                $user = $this->_userManager->get($id);
+
+                $this->generateView("EditUser", $error, 'user', $user);
+            }
+        }
+        $this->generateView("EditUser", null, 'user', $user);
+    }
 }
