@@ -50,4 +50,36 @@ class ControllerAdminComment extends GenerateView
             header('Location: index.php?c=admincommentfilter#list');
         }
     }
+
+    //Status validé
+    public function validate($id, $status = null)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $commentId = $this->commentManager->get($id);
+        $this->commentManager->validate($commentId);
+
+        if ($status === 1) {
+            header('Location: index.php?c=admincomment#list');
+        } elseif ($status === 0) {
+            header('Location: index.php?c=admincommentfilter#list');
+        }
+    }
+
+    //Status en attente
+    public function unvalidate($id, $status = null)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $commentId = $this->commentManager->get($id);
+        $this->commentManager->unvalidate($commentId);
+
+        if ($status === 1) {
+            header('Location: index.php?c=admincomment#list');
+        } elseif ($status === 0) {
+            header('Location: index.php?c=admincommentfilter#list');
+        }
+    }
 }
