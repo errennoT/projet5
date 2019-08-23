@@ -60,4 +60,26 @@ class ControllerAdminUser extends GenerateView
         $this->_userManager->unBan($userId);
         header('Location: index.php?u=adminuser#list');
     }
+
+    //Définir un nouvel admin
+    public function setAdmin($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $userId = $this->_userManager->get($id);
+        $this->_userManager->setAdmin($userId);
+        header('Location: index.php?u=adminuser#list');
+    }
+
+    //Supprimer un administrateur
+    public function unsetAdmin($id)
+    {
+        $areaAdmin = $this->areaAdmin = new AreaAdmin;
+        $areaAdmin->verifyAdmin();
+
+        $userId = $this->_userManager->get($id);
+        $this->_userManager->unsetAdmin($userId);
+        header('Location: index.php?u=adminuser#list');
+    }
 }
