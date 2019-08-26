@@ -3,7 +3,7 @@
 namespace Projet5\Model;
 
 use \Projet5\Model\Message;
-use \Projet5\Service\DataBase;
+use \Projet5\Model\DataBase;
 use \PDO;
 
 class MessageManager extends DataBase

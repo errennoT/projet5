@@ -1,6 +1,6 @@
 <?php
 
-namespace Projet5\Service;
+namespace Projet5\Model;
 
 
 class DataBase
