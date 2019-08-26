@@ -25,10 +25,9 @@ class CommentManager extends DataBase
         $this->executeSql($q);
     }
 
-    public function delete(Comment $comment)
+    public function delete(int $id)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM comment WHERE id = :id');
-        $q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('DELETE FROM comment WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
@@ -41,18 +40,16 @@ class CommentManager extends DataBase
         $this->executeSql($q);
     }
 
-    public function validate(Comment $comment)
+    public function validate(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 0 WHERE id = :id');
-        $q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 0 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
-    public function unvalidate(Comment $comment)
+    public function unvalidate(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 1 WHERE id = :id');
-        $q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 1 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
