@@ -41,8 +41,7 @@ class ControllerAdminComment extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $commentId = $this->commentManager->get($id);
-        $this->commentManager->delete($commentId);
+        $this->commentManager->delete($id);
 
         if ($status === 1) {
             header('Location: index.php?c=admincomment#list');
@@ -57,8 +56,7 @@ class ControllerAdminComment extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $commentId = $this->commentManager->get($id);
-        $this->commentManager->validate($commentId);
+        $this->commentManager->validate($id);
 
         if ($status === 1) {
             header('Location: index.php?c=admincomment#list');
@@ -73,8 +71,7 @@ class ControllerAdminComment extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $commentId = $this->commentManager->get($id);
-        $this->commentManager->unvalidate($commentId);
+        $this->commentManager->unvalidate($id);
 
         if ($status === 1) {
             header('Location: index.php?c=admincomment#list');

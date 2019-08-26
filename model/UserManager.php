@@ -21,42 +21,37 @@ class UserManager extends DataBase
         $this->executeSql($q);
     }
 
-    public function delete(User $user)
+    public function delete(int $id)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM user WHERE id = :id');
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('DELETE FROM user WHERE id = '. $id);
 
         $this->executeSql($q);
     }
 
-    public function ban(User $user)
+    public function ban(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = :id');
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = '. $id);
 
         $this->executeSql($q);
     }
 
-    public function unBan(User $user)
+    public function unBan(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = :id');
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = '. $id);
 
         $this->executeSql($q);
     }
 
-    public function setAdmin(User $user)
+    public function setAdmin(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = :id');
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = '. $id);
 
         $this->executeSql($q);
     }
 
-    public function unsetAdmin(User $user)
+    public function unsetAdmin(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 0 WHERE id = :id');
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 0 WHERE id =' . $id);
 
         $this->executeSql($q);
     }

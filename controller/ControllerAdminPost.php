@@ -67,8 +67,7 @@ class ControllerAdminPost extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $postId = $this->postManager->get($id);
-        $this->postManager->delete($postId);
+        $this->postManager->delete($id);
 
         $comment = $this->commentManager = new CommentManager();
         $comment->deleteCommentInPost($id);
@@ -104,8 +103,7 @@ class ControllerAdminPost extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $postId = $this->postManager->get($id);
-        $this->postManager->published($postId);
+        $this->postManager->published($id);
         header('Location: index.php?p=adminpost#list');
     }
 
@@ -115,8 +113,7 @@ class ControllerAdminPost extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $postId = $this->postManager->get($id);
-        $this->postManager->draft($postId);
+        $this->postManager->draft($id);
         header('Location: index.php?p=adminpost#list');
     }
 }
