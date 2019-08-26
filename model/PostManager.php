@@ -22,26 +22,23 @@ class PostManager extends DataBase
         $this->executeSql($q);
     }
 
-    public function delete(Post $post)
+    public function delete(int $id)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM post WHERE id = :id');
-        $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('DELETE FROM post WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
-    public function published(Post $post)
+    public function published(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET status = 0 WHERE id = :id');
-        $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE post SET status = 0 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
-    public function draft(Post $post)
+    public function draft(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET status = 1 WHERE id = :id');
-        $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $q = $this->dbConnect()->prepare('UPDATE post SET status = 1 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }

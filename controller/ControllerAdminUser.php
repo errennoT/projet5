@@ -34,8 +34,7 @@ class ControllerAdminUser extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $userId = $this->_userManager->get($id);
-        $this->_userManager->delete($userId);
+        $this->_userManager->delete($id);
         header('Location: index.php?u=adminuser#list');
     }
 
@@ -45,8 +44,7 @@ class ControllerAdminUser extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $userId = $this->_userManager->get($id);
-        $this->_userManager->ban($userId);
+        $this->_userManager->ban($id);
         header('Location: index.php?u=adminuser#list');
     }
 
@@ -56,8 +54,7 @@ class ControllerAdminUser extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $userId = $this->_userManager->get($id);
-        $this->_userManager->unBan($userId);
+        $this->_userManager->unBan($id);
         header('Location: index.php?u=adminuser#list');
     }
 
@@ -67,8 +64,7 @@ class ControllerAdminUser extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $userId = $this->_userManager->get($id);
-        $this->_userManager->setAdmin($userId);
+        $this->_userManager->setAdmin($id);
         header('Location: index.php?u=adminuser#list');
     }
 
@@ -78,8 +74,7 @@ class ControllerAdminUser extends GenerateView
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
 
-        $userId = $this->_userManager->get($id);
-        $this->_userManager->unsetAdmin($userId);
+        $this->_userManager->unsetAdmin($id);
         header('Location: index.php?u=adminuser#list');
     }
 
