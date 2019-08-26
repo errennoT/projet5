@@ -26,8 +26,8 @@ return array(
     'Projet5\\Model\\PostManager' => $baseDir . '/model/PostManager.php',
     'Projet5\\Model\\User' => $baseDir . '/model/User.php',
     'Projet5\\Model\\UserManager' => $baseDir . '/model/UserManager.php',
-    'Projet5\\Service\\GenerateView' => $baseDir . '/service/GenerateView.php',
     'Projet5\\Service\\Hydrate' => $baseDir . '/service/Hydrate.php',
+    'Projet5\\Service\\RenderView' => $baseDir . '/service/ViewManager.php',
     'Projet5\\Service\\Router' => $baseDir . '/service/Router.php',
     'Projet5\\View\\View' => $baseDir . '/view/View.php',
 );

@@ -5,9 +5,9 @@ namespace Projet5\Service;
 use \Projet5\View\View;
 
 
-class GenerateView
+class RenderView
 {
-    protected function generateView($name, $error = null, $nameFunction = null, $function = null)
+    public function generateView($name, $error = null, $nameFunction = null, $function = null)
     {
         $view = new View($name, $error);
         if ($function === null) {

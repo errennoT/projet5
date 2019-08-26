@@ -4,16 +4,18 @@ namespace Projet5\Controller;
 
 use Projet5\Model\CommentManager;
 use Projet5\Model\Comment;
-use Projet5\Service\GenerateView;
+
+use Projet5\Service\RenderView;
 
 
-class ControllerComment extends GenerateView
+class ControllerComment
 {
     private $commentManager;
 
     public function __construct()
     {
         $this->commentManager = new CommentManager();
+        $this->renderview = new RenderView();
     }
 
     public function addComment($postId)
@@ -28,13 +30,13 @@ class ControllerComment extends GenerateView
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);
 
-                    $this->generateView("MessageComment", null);
+                    $this->renderview->generateView("MessageComment", null);
                     
                 } elseif (isset($_SESSION['admin'])) {
                     $data = $this->commentManager->sendComment($_POST['contentComment'], 1, $postId, $_SESSION['admin']);
 
                     $comment = new Comment($data);
-                    $this->commentManager->add($comment);
+                    $this->renderview->commentManager->add($comment);
 
                     header('location: index.php?p=listpost');
                 }
