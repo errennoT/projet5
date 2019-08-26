@@ -4,9 +4,10 @@ namespace Projet5\Controller;
 
 use Projet5\Model\MessageManager;
 use Projet5\Model\AreaAdmin;
-use Projet5\Service\GenerateView;
 
-class ControllerAdminMessage extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerAdminMessage
 {
     private $messageManager;
     private $areaAdmin;
@@ -14,6 +15,8 @@ class ControllerAdminMessage extends GenerateView
     public function __construct()
     {
         $this->messageManager = new MessageManager();
+        $this->renderview = new RenderView();
+        
     }
 
     // Afficher tous les messages
@@ -23,7 +26,7 @@ class ControllerAdminMessage extends GenerateView
         $areaAdmin->verifyAdmin();
 
         $messages = $this->messageManager->getList();
-        $this->generateView("AdminListMessage", null, 'messages', $messages);
+        $this->renderview->generateView("AdminListMessage", null, 'messages', $messages);
     }
 
     //Afficher un message
@@ -34,7 +37,7 @@ class ControllerAdminMessage extends GenerateView
 
         $message = $this->messageManager->get($id);
 
-        $this->generateView("Message", null, 'message', $message);
+        $this->renderview->generateView("Message", null, 'message', $message);
     }
     
     //Répondre à un message

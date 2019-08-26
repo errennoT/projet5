@@ -4,15 +4,17 @@ namespace Projet5\Controller;
 
 use Projet5\Model\MessageManager;
 use Projet5\Model\Message;
-use Projet5\Service\GenerateView;
 
-class ControllerMessage extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerMessage
 {
     private $messageManager;
 
     public function __construct()
     {
         $this->messageManager = new MessageManager();
+        $this->renderview = new RenderView();
     }
 
     //Ajouter un message
@@ -26,7 +28,7 @@ class ControllerMessage extends GenerateView
                 $message = new Message($data);
                 $this->messageManager->add($message);
 
-                $this->generateView("MessageSend");
+                $this->renderview->generateView("MessageSend");
             } else { //ajout d'un try catch
                 header('location: index.php?m=errormessage');
             }

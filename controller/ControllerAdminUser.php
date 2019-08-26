@@ -5,9 +5,10 @@ namespace Projet5\Controller;
 use Projet5\Model\User;
 use Projet5\Model\UserManager;
 use Projet5\Model\AreaAdmin;
-use Projet5\Service\GenerateView;
 
-class ControllerAdminUser extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerAdminUser
 {
     private $_userManager;
     private $areaAdmin;
@@ -15,6 +16,7 @@ class ControllerAdminUser extends GenerateView
     public function __construct()
     {
         $this->_userManager = new UserManager();
+        $this->renderview = new RenderView();
     }
 
     //Liste des utilisateurs
@@ -25,7 +27,7 @@ class ControllerAdminUser extends GenerateView
 
         $users = $this->_userManager->getList();
 
-        $this->generateView("AdminUser", null, 'users', $users);
+        $this->renderview->generateView("AdminUser", null, 'users', $users);
     }
 
     //Supprimer un utilisateur
@@ -96,9 +98,9 @@ class ControllerAdminUser extends GenerateView
             } else {
                 $user = $this->_userManager->get($id);
 
-                $this->generateView("EditUser", $error, 'user', $user);
+                $this->renderview->generateView("EditUser", $error, 'user', $user);
             }
         }
-        $this->generateView("EditUser", null, 'user', $user);
+        $this->renderview->generateView("EditUser", null, 'user', $user);
     }
 }

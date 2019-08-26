@@ -6,9 +6,10 @@ use Projet5\Model\PostManager;
 use Projet5\Model\Post;
 use Projet5\Model\AreaAdmin;
 use Projet5\Model\CommentManager;
-use Projet5\Service\GenerateView;
 
-class ControllerAdminPost extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerAdminPost
 {
     private $postManager;
     private $areaAdmin;
@@ -17,6 +18,7 @@ class ControllerAdminPost extends GenerateView
     public function __construct()
     {
         $this->postManager = new PostManager();
+        $this->renderview = new RenderView();
     }
 
     // Afficher tous les articles
@@ -27,7 +29,7 @@ class ControllerAdminPost extends GenerateView
 
         $posts = $this->postManager->getList("admin");
 
-        $this->generateView("AdminPost", null, 'posts', $posts);
+        $this->renderview->generateView("AdminPost", null, 'posts', $posts);
     }
 
     //Afficher un article
@@ -37,7 +39,7 @@ class ControllerAdminPost extends GenerateView
         $areaAdmin->verifyAdmin();
 
         $post = $this->postManager->get($id);
-        $this->generateView("Post", null, 'post', $post);
+        $this->renderview->generateView("Post", null, 'post', $post);
     }
 
     //Ajouter un article
@@ -54,11 +56,11 @@ class ControllerAdminPost extends GenerateView
                 $this->postManager->add($post);
                 header('Location: index.php?p=adminpost#list');
             } else {
-                $this->generateView("AddPost", $error);
+                $this->renderview->generateView("AddPost", $error);
             }
         }
 
-        $this->generateView("AddPost");
+        $this->renderview->generateView("AddPost");
     }
 
     //Supprimer un article
@@ -91,10 +93,10 @@ class ControllerAdminPost extends GenerateView
                 $this->postManager->update($post);
                 header('Location: index.php?p=adminpost#list');
             } else {
-                $this->generateView("EditPost", $error, 'post', $post);
+                $this->renderview->generateView("EditPost", $error, 'post', $post);
             }
         }
-        $this->generateView("EditPost", null, 'post', $post);
+        $this->renderview->generateView("EditPost", null, 'post', $post);
     }
 
     //Status publié
