@@ -5,7 +5,7 @@ namespace Projet5\Model;
 use \Projet5\Model\Comment;
 use \Projet5\Model\PostManager;
 use \Projet5\View\View;
-use \Projet5\Service\DataBase;
+use \Projet5\Model\DataBase;
 use \PDO;
 
 class CommentManager extends DataBase
