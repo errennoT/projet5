@@ -38,8 +38,8 @@ class Router
 	{
 		$this->ctrlRegister = new ControllerRegister();
 		$this->ctrlLogin = new ControllerLogin();
-		$this->ctrlAdmin = new ControllerAdmin();
 		$this->ctrlAdminUser = new ControllerAdminUser();
+		$this->ctrlAdmin = new ControllerAdmin();
 
 		$this->ctrlPost = new ControllerPost();
 		$this->ctrlAdminPost = new ControllerAdminPost();

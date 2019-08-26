@@ -3,15 +3,17 @@
 namespace Projet5\Controller;
 
 use Projet5\Model\UserManager;
-use Projet5\Service\GenerateView;
+
+use Projet5\Service\RenderView;
 
 session_start();
-class ControllerLogin extends GenerateView
+class ControllerLogin
 {
     private $_userManager;
     public function __construct()
     {
         $this->_userManager = new UserManager();
+        $this->renderview = new RenderView();
     }
 
     public function login()
@@ -29,16 +31,16 @@ class ControllerLogin extends GenerateView
                     break;
                 default:
                     $error = $this->_userManager->getErrorStatus($authenticate);
-                    $this->generateView("Login", $error);
+                    $this->renderview->generateView("Login", $error);
                     break;
             }
         }
 
-        $this->generateView("Login");
+        $this->renderview->generateView("Login");
     }
 
     public function logout()
     {
-        $this->generateView("Logout");
+        $this->renderview->generateView("Logout");
     }
 }

@@ -4,9 +4,10 @@ namespace Projet5\Controller;
 
 use \Projet5\Model\UserManager;
 use \Projet5\Model\AreaAdmin;
-use Projet5\Service\GenerateView;
 
-class ControllerAdmin extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerAdmin
 {
 
     private $_userManager;
@@ -14,18 +15,20 @@ class ControllerAdmin extends GenerateView
 
     public function __construct()
     {
+
         $this->_userManager = new UserManager();
+        $this->renderview = new RenderView();
     }
 
     public function adminArea()
     {
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
-        $this->generateView("Admin");
+        $this->renderview->generateView("Admin");
     }
 
     public function accesDenied()
     {
-        $this->generateView("AccesDenied");
+        $this->renderview->generateView("AccesDenied");
     }
 }

@@ -5,9 +5,9 @@ namespace Projet5\Controller;
 use Projet5\Model\PostManager;
 use Projet5\View\View;
 use Projet5\Model\CommentManager;
-use Projet5\Service\GenerateView;
+use Projet5\Service\RenderView;
 
-class ControllerPost extends GenerateView
+class ControllerPost
 {
     private $postManager;
     private $commentManager;
@@ -15,13 +15,14 @@ class ControllerPost extends GenerateView
     public function __construct()
     {
         $this->postManager = new PostManager();
+        $this->renderview = new RenderView();
     }
     
     // Afficher tous les articles
     public function listPost()
     {
         $posts = $this->postManager->getList("user");
-        $this->generateView("ListPosts", null, 'posts', $posts);
+        $this->renderview->generateView("ListPosts", null, 'posts', $posts);
     }
 
     //Afficher un article

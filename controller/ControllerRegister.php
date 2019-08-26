@@ -4,15 +4,17 @@ namespace Projet5\Controller;
 
 use Projet5\Model\User;
 use Projet5\Model\UserManager;
-use Projet5\Service\GenerateView;
 
-class ControllerRegister extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerRegister
 {
     private $_userManager;
 
     public function __construct()
     {
         $this->_userManager = new UserManager();
+        $this->renderview = new RenderView();
     }
 
     //Créer un compte utilisateur
@@ -28,10 +30,10 @@ class ControllerRegister extends GenerateView
                 $_POST['login'] = "";
                 $_POST['email'] = "";
             } else {
-                $this->generateView("Add", $error);
+                $this->renderview->generateView("Add", $error);
             }
         }
 
-        $this->generateView("Add");
+        $this->renderview->generateView("Add");
     }
 }

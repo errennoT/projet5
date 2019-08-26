@@ -4,9 +4,10 @@ namespace Projet5\Controller;
 
 use \Projet5\Model\CommentManager;
 use \Projet5\Model\AreaAdmin;
-use Projet5\Service\GenerateView;
 
-class ControllerAdminComment extends GenerateView
+use Projet5\Service\RenderView;
+
+class ControllerAdminComment
 {
     private $commentManager;
     private $areaAdmin;
@@ -14,6 +15,7 @@ class ControllerAdminComment extends GenerateView
     public function __construct()
     {
         $this->commentManager = new CommentManager();
+        $this->renderview = new RenderView();
     }
 
     //Liste des commentaires en attentes de validations
@@ -23,7 +25,7 @@ class ControllerAdminComment extends GenerateView
         $areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("admin");
-        $this->generateView("AdminComment", null, 'comments', $comments);
+        $this->renderview->generateView("AdminComment", null, 'comments', $comments);
     }
 
     public function listCommentUnvalidate()
@@ -32,7 +34,7 @@ class ControllerAdminComment extends GenerateView
         $areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("adminmanager");
-        $this->generateView("AdminCommentManager", null, 'comments', $comments);
+        $this->renderview->generateView("AdminCommentManager", null, 'comments', $comments);
     }
 
     //Supprimer un commentaire
