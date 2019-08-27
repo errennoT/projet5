@@ -47,7 +47,7 @@ class PostManager extends DataBase
     {
         $id = (int) $id;
 
-        $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post WHERE id = ' . $id);
+        $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post WHERE id = ' . $id);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -61,10 +61,10 @@ class PostManager extends DataBase
 
         switch ($status) {
             case "admin":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post ORDER BY id desc');
                 break;
             case "user":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated,status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
                 break;
         }
 
@@ -78,7 +78,7 @@ class PostManager extends DataBase
 
     public function update(Post $post)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET title = :title, content = :content, date = NOW(), status = :status, chapo = :chapo, author = :author WHERE id = :id');
+        $q = $this->dbConnect()->prepare('UPDATE post SET title = :title, content = :content, updated = NOW(), status = :status, chapo = :chapo, author = :author WHERE id = :id');
 
 
         $q->bindValue(':title', $post->title(), PDO::PARAM_STR);

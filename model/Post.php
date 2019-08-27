@@ -11,6 +11,7 @@ class Post extends Hydrate
     private $_title;
     private $_content;
     private $_date;
+    private $_updated;
     private $_status;
     private $_chapo;
     private $_author;
@@ -45,6 +46,11 @@ class Post extends Hydrate
     public function date()
     {
         return $this->_date;
+    }
+
+    public function updated()
+    {
+        return $this->_updated;
     }
 
     public function status()
@@ -90,6 +96,11 @@ class Post extends Hydrate
     public function setDate($date)
     {
         $this->_date = $date;
+    }
+
+    public function setUpdated($updated)
+    {
+        $this->_updated = $updated;
     }
 
     public function setStatus($status)
