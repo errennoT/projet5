@@ -4,7 +4,7 @@ namespace Projet5\Controller;
 
 use Projet5\Model\UserManager;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 session_start();
 class ControllerLogin
@@ -13,7 +13,7 @@ class ControllerLogin
     public function __construct()
     {
         $this->_userManager = new UserManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     public function login()

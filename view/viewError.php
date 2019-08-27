@@ -1,0 +1,27 @@
+<?php $this->header = "Erreur" ?>
+
+<!-- Page blog header -->
+<section class="page-section">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Un problème est survenu</h2>
+
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+    </div>
+
+    <div class="container alert alert-danger">
+        <?php if (isset($msgError)) {
+            echo "Erreur: $msgError";
+        } else {
+            echo "Erreur: lien invalide";
+         }
+        ?>
+    </div>
+    <div class="container">
+        <a class="btn btn-primary" href="index.php?p=listpost">Retour</a>
+    </div>
+
+</section>

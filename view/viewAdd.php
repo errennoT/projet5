@@ -40,7 +40,7 @@
   <?php if($this->error == 'succes'): ?>
     <div class="container alert alert-success">
       Votre compte a bien été crée. <br>
-      Vous pouvez vous connecter.
+      Vous pouvez vous <a href="index.php?u=login">connecter</a>.
     </div>
   <?php endif ?>
 

@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use Projet5\Model\PostManager;
 use Projet5\View\View;
 use Projet5\Model\CommentManager;
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerPost
 {
@@ -15,7 +15,7 @@ class ControllerPost
     public function __construct()
     {
         $this->postManager = new PostManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
     
     // Afficher tous les articles

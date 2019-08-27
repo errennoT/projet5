@@ -7,7 +7,7 @@ use Projet5\Model\Post;
 use Projet5\Model\AreaAdmin;
 use Projet5\Model\CommentManager;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerAdminPost
 {
@@ -18,7 +18,7 @@ class ControllerAdminPost
     public function __construct()
     {
         $this->postManager = new PostManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     // Afficher tous les articles

@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use Projet5\Model\MessageManager;
 use Projet5\Model\AreaAdmin;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerAdminMessage
 {
@@ -15,7 +15,7 @@ class ControllerAdminMessage
     public function __construct()
     {
         $this->messageManager = new MessageManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
         
     }
 

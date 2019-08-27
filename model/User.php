@@ -2,7 +2,9 @@
 
 namespace Projet5\Model;
 
-use \Projet5\Service\Hydrate;
+use Exception;
+use Projet5\Service\Hydrate;
+use Projet5\Service\ViewManager;
 
 class User extends Hydrate
 {
@@ -15,7 +17,12 @@ class User extends Hydrate
 
     public function __construct($data)
     {
-        $this->hydrate($data);
+        if (is_array($data)) {
+            $this->hydrate($data);
+        } else {
+            $this->renderview = new ViewManager();
+            $this->renderview->generateView("Error");
+        }
     }
 
     //getters list
