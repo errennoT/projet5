@@ -88,7 +88,7 @@ class ControllerAdminPost
         if (!empty($_POST)) {
             $error = $this->postManager->errorPost(htmlentities($_POST['title']), htmlentities($_POST['content']), htmlentities($_POST['chapo']), "update", htmlentities($_POST['author']));
             if (empty($error)) {
-                $data = $this->postManager->sendPost(htmlentities($_POST['title']), htmlentities($_POST['content']), isset($_POST['publish']) ? true : false, $_POST['chapo'], htmlentities($_POST['author']), htmlentities($_POST['id']));
+                $data = $this->postManager->validateData(htmlentities($_POST['title']), htmlentities($_POST['content']), isset($_POST['publish']) ? true : false, $_POST['chapo'], htmlentities($_POST['author']), htmlentities($_POST['id']));
                 $post = new Post($data);
                 $this->postManager->update($post);
                 header('Location: index.php?p=adminpost#list');
