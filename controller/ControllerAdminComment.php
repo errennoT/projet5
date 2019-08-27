@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use \Projet5\Model\CommentManager;
 use \Projet5\Model\AreaAdmin;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerAdminComment
 {
@@ -15,7 +15,7 @@ class ControllerAdminComment
     public function __construct()
     {
         $this->commentManager = new CommentManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     //Liste des commentaires en attentes de validations

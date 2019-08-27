@@ -6,7 +6,7 @@ use Projet5\Model\User;
 use Projet5\Model\UserManager;
 use Projet5\Model\AreaAdmin;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerAdminUser
 {
@@ -16,7 +16,7 @@ class ControllerAdminUser
     public function __construct()
     {
         $this->_userManager = new UserManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     //Liste des utilisateurs

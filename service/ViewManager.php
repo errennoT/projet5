@@ -5,7 +5,7 @@ namespace Projet5\Service;
 use \Projet5\View\View;
 
 
-class RenderView
+class ViewManager
 {
     public function generateView($name, $error = null, $nameFunction = null, $function = null)
     {

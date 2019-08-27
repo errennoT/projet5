@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use \Projet5\Model\UserManager;
 use \Projet5\Model\AreaAdmin;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerAdmin
 {
@@ -17,7 +17,7 @@ class ControllerAdmin
     {
 
         $this->_userManager = new UserManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     public function adminArea()
