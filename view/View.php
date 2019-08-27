@@ -2,6 +2,8 @@
 
 namespace Projet5\View;
 
+use \Exception;
+
 class View
 {
 

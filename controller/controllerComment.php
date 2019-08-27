@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use Projet5\Model\CommentManager;
 use Projet5\Model\Comment;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 
 class ControllerComment
@@ -15,7 +15,7 @@ class ControllerComment
     public function __construct()
     {
         $this->commentManager = new CommentManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     public function addComment($postId)
@@ -36,9 +36,9 @@ class ControllerComment
                     $data = $this->commentManager->sendComment($_POST['contentComment'], 1, $postId, $_SESSION['admin']);
 
                     $comment = new Comment($data);
-                    $this->renderview->commentManager->add($comment);
+                    $this->commentManager->add($comment);
 
-                    header('location: index.php?p=listpost');
+                    header("location: index.php?p=post&id=$postId");
                 }
             }
         }

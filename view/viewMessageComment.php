@@ -16,7 +16,7 @@
         Votre commentaire est en attente de validation
     </div>
     <div class="container">
-        <a class="btn btn-primary" href="index.php?p=listpost">Retour</a>
+        <a class="btn btn-primary" href="index.php">Retour</a>
     </div>
 
 </section>

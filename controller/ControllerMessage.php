@@ -5,7 +5,7 @@ namespace Projet5\Controller;
 use Projet5\Model\MessageManager;
 use Projet5\Model\Message;
 
-use Projet5\Service\RenderView;
+use Projet5\Service\ViewManager;
 
 class ControllerMessage
 {
@@ -14,7 +14,7 @@ class ControllerMessage
     public function __construct()
     {
         $this->messageManager = new MessageManager();
-        $this->renderview = new RenderView();
+        $this->renderview = new ViewManager();
     }
 
     //Ajouter un message

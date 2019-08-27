@@ -42,8 +42,8 @@ class ComposerStaticInit4cf23fc741133070bdf40697e482fdac
         'Projet5\\Model\\User' => __DIR__ . '/../..' . '/model/User.php',
         'Projet5\\Model\\UserManager' => __DIR__ . '/../..' . '/model/UserManager.php',
         'Projet5\\Service\\Hydrate' => __DIR__ . '/../..' . '/service/Hydrate.php',
-        'Projet5\\Service\\RenderView' => __DIR__ . '/../..' . '/service/ViewManager.php',
         'Projet5\\Service\\Router' => __DIR__ . '/../..' . '/service/Router.php',
+        'Projet5\\Service\\ViewManager' => __DIR__ . '/../..' . '/service/ViewManager.php',
         'Projet5\\View\\View' => __DIR__ . '/../..' . '/view/View.php',
     );
 
