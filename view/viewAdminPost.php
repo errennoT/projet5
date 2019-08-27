@@ -31,6 +31,7 @@
                     <th scope="col">Titre</th>
                     <th scope="col">Auteur</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Modifié</th>
                     <th scope="col">Status</th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Changer status en</th>
@@ -43,6 +44,7 @@
                         <th scope="row"><a href="index.php?p=post&id=<?= $this->clean($post->id());?>"><?= $this->clean($post->title()); ?></a></th>
                         <td><?= $this->clean($post->author()) ?></td>
                         <td><?= $this->clean($post->date()) ?></td>
+                        <td><?= $this->clean($post->updated()) === "00/00/0000 à 00h00" ? "Non modifié" : $this->clean($post->updated()) ?></td>
                         <td><?= $this->replaceBoolByName($this->clean($post->status()), "post") ?></td>
                         <td><?= "<a class='btn btn-primary' href='index.php?p=editpost&id=" . $this->clean($post->id()) . "'>Modifier</a>"; ?></td>
                         <td><?php if($this->clean($post->status()) === "0") { echo "<a class='btn btn-success' href='index.php?p=unpublish&id=" . $this->clean($post->id()) . "'>Publié</a>"; } elseif ($this->clean($post->status()) === "1") { echo "<a class='btn btn-warning' href='index.php?p=publish&id=" . $this->clean($post->id()) . "'>Brouillon</a>";} ?></td>

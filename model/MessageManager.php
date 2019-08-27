@@ -33,7 +33,7 @@ class MessageManager extends DataBase
     {
         $id = (int) $id;
 
-        $q = $this->dbConnect()->prepare('SELECT id, date, surname, name, content, email FROM message WHERE id = ' . $id);
+        $q = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message WHERE id = ' . $id);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -45,7 +45,7 @@ class MessageManager extends DataBase
     {
         $message = [];
 
-        $q = $this->dbConnect()->prepare('SELECT id, date, surname, name, content, email FROM message ORDER BY id desc');
+        $q = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message ORDER BY id desc');
         $q->execute(array());
         while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
             $message[] = new Message($data);
@@ -87,7 +87,7 @@ class MessageManager extends DataBase
     }
 
     //Vérifie les données
-    public function sendMessage($content, $surname = null, $name = null, $email = null)
+    public function validateData($content, $surname = null, $name = null, $email = null)
     {
         $data['surname'] = $surname;
         $data['name'] = $name;

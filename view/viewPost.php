@@ -13,7 +13,11 @@
 
   <!-- View Article -->
   <div class="container">
-    <h4>Posté le <?= $this->clean($post->date()) ?></h4>
+    <?php if ($post->updated() === "00/00/0000 à 00h00") : ?>
+      <h4>Posté le <?= $this->clean($post->date()) ?></h4>
+    <? else : ?>
+      <h4>Modifié le <?= $this->clean($post->updated()) ?></h4>
+    <?php endif ?>
     <p>Par <strong><?= $this->clean($post->author()) ?></strong></p>
   </div>
 

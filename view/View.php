@@ -60,8 +60,8 @@ class View
     //Remplace le booléan par une information
     private function replaceBoolByName($data, $function)
     {
-        $test = array($data, $function);
-        switch ($test) {
+        $arrayForSwitch = array($data, $function);
+        switch ($arrayForSwitch) {
             case array(0, "user"):
                 return str_replace("0", "banni", $data);
                 break;
