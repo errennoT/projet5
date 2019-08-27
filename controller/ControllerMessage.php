@@ -24,12 +24,12 @@ class ControllerMessage
             $error = $this->messageManager->errorMessage(htmlentities($_POST['content']), htmlentities($_POST['surname']), htmlentities($_POST['name']), htmlentities($_POST['email']), "add");
 
             if (empty($error)) {
-                $data = $this->messageManager->sendMessage(htmlentities($_POST['content']), htmlentities($_POST['surname']), htmlentities($_POST['name']), htmlentities($_POST['email']));
+                $data = $this->messageManager->validateData(htmlentities($_POST['content']), htmlentities($_POST['surname']), htmlentities($_POST['name']), htmlentities($_POST['email']));
                 $message = new Message($data);
                 $this->messageManager->add($message);
 
                 $this->renderview->generateView("MessageSend");
-            } else { //ajout d'un try catch
+            } else { // à finir
                 header('location: index.php?m=errormessage');
             }
         }

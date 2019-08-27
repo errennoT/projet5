@@ -91,7 +91,7 @@ class ControllerAdminUser
         if (!empty($_POST)) {
             $error = $this->_userManager->getError($_POST['login'], $_POST['password'], $_POST['email']);
             if (empty($error)) {
-                $data = $this->_userManager->register(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), htmlentities($_POST['id']));
+                $data = $this->_userManager->validateData(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), htmlentities($_POST['id']));
                 $user = new User($data);
                 $this->_userManager->update($user);
                 header('Location: index.php?u=adminuser');

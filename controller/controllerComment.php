@@ -28,14 +28,14 @@ class ControllerComment
 
             if (empty($error)) {
                 if (isset($_SESSION['user'])) {
-                    $data = $this->commentManager->sendComment($_POST['contentComment'], 0, $postId, $_SESSION['user']);
+                    $data = $this->commentManager->validateData(htmlentities($_POST['contentComment']), 0, $postId, htmlentities($_SESSION['user']));
 
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);
 
                     $this->renderview->generateView("MessageComment", null);
                 } elseif (isset($_SESSION['admin'])) {
-                    $data = $this->commentManager->sendComment($_POST['contentComment'], 1, $postId, $_SESSION['admin']);
+                    $data = $this->commentManager->validateData(htmlentities($_POST['contentComment']), 1, $postId, htmlentities($_SESSION['admin']));
 
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);
