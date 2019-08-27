@@ -5,7 +5,10 @@ namespace Projet5\Controller;
 use Projet5\Model\CommentManager;
 use Projet5\Model\Comment;
 
+use Projet5\Model\PostManager;
+
 use Projet5\Service\ViewManager;
+use Projet5\View\View;
 
 
 class ControllerComment
@@ -21,7 +24,7 @@ class ControllerComment
     public function addComment($postId)
     {
         if (!empty($_POST)) {
-            $error = $this->commentManager->errorComment($_POST['contentComment'], $postId);
+            $error = $this->commentManager->errorComment($_POST['contentComment']);
 
             if (empty($error)) {
                 if (isset($_SESSION['user'])) {
@@ -31,7 +34,6 @@ class ControllerComment
                     $this->commentManager->add($comment);
 
                     $this->renderview->generateView("MessageComment", null);
-                    
                 } elseif (isset($_SESSION['admin'])) {
                     $data = $this->commentManager->sendComment($_POST['contentComment'], 1, $postId, $_SESSION['admin']);
 
@@ -40,6 +42,14 @@ class ControllerComment
 
                     header("location: index.php?p=post&id=$postId");
                 }
+            } else {
+                $postManager = $this->postManager = new PostManager();
+                $post = $postManager->get($postId);
+
+                $comments = $this->commentManager->getList("user", $postId);
+
+                $view = new View("Post", $error);
+                $view->generate(array('post' => $post, 'comments' => $comments));
             }
         }
     }
