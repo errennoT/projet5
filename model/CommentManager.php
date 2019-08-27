@@ -90,18 +90,11 @@ class CommentManager extends DataBase
     }
 
     //Envoie une erreur si le formulaire est mal rempli
-    public function errorComment($content, $postId)
+    public function errorComment($content)
     {
         $error = [];
         if (strlen($content) < 5) {
             $error['content'] = 'Votre commentaire est trop court';
-            $postManager = $this->postManager = new PostManager();
-            $post = $postManager->get($postId);
-
-            $comments = $this->getList("user", $postId);
-
-            $view = new View("Post", $error);
-            $view->generate(array('post' => $post, 'comments' => $comments));
         }
 
         return $error;
