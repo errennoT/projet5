@@ -47,7 +47,7 @@ class PostManager extends DataBase
     {
         $id = (int) $id;
 
-        $q = $this->dbConnect()->prepare('SELECT id, title, content, date, status, chapo, author FROM post WHERE id = ' . $id);
+        $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post WHERE id = ' . $id);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -61,10 +61,10 @@ class PostManager extends DataBase
 
         switch ($status) {
             case "admin":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, date, status, chapo, author FROM post ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post ORDER BY id desc');
                 break;
             case "user":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, date, status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
                 break;
         }
 
@@ -92,7 +92,7 @@ class PostManager extends DataBase
     }
 
     //Vérifie les données
-    public function sendPost($title, $content, $status, $chapo, $author, $id = null)
+    public function validateData($title, $content, $status, $chapo, $author, $id = null)
     {
         $data['title'] = $title;
         $data['content'] = $content;
