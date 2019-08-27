@@ -3,15 +3,11 @@
 namespace Projet5\Model;
 
 use \Projet5\Model\Comment;
-use \Projet5\Model\PostManager;
-use \Projet5\View\View;
 use \Projet5\Model\DataBase;
 use \PDO;
 
 class CommentManager extends DataBase
 {
-
-    private $postManager;
 
     public function add(Comment $comment)
     {
@@ -58,7 +54,7 @@ class CommentManager extends DataBase
     {
         $id = (int) $id;
 
-        $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, date, status FROM comment WHERE id = ' . $id);
+        $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE id = ' . $id);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -71,13 +67,13 @@ class CommentManager extends DataBase
 
         switch ($status) {
             case "admin":
-                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, date, status FROM comment ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment ORDER BY id desc');
                 break;
             case "adminmanager":
-                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, date, status FROM comment WHERE status = 0 ORDER BY id desc');
+                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE status = 0 ORDER BY id desc');
                 break;
             case "user":
-                $q = $this->dbConnect()->prepare("SELECT id, postid, author, content, date, status FROM comment WHERE postid = $postId && status = 1 ORDER BY id desc");
+                $q = $this->dbConnect()->prepare("SELECT id, postid, author, content, DATE_FORMAT(date, '%d/%m/%Y à %Hh%i') AS date, status FROM comment WHERE postid = $postId && status = 1 ORDER BY id desc");
                 break;
         }
 
@@ -101,21 +97,13 @@ class CommentManager extends DataBase
     }
 
     //Vérifie les données
-    public function sendComment($content, $status, $postId, $author, $id = null)
+    public function validateData($content, $status, $postId, $author, $id = null)
     {
         $data['content'] = $content;
+        $data['status'] = $status;
         $data['postId'] = $postId;
         $data['author'] = $author;
         $data['id'] = $id;
-
-        switch ($status) {
-            case true:
-                $data['status'] = 1;
-                break;
-            case false:
-                $data['status'] = 0;
-                break;
-        }
 
         return $data;
     }

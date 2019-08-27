@@ -93,7 +93,7 @@ class UserManager extends DataBase
     }
 
     //Teste si le password est assez long
-    public function register($password, $login, $email, $id = null, $status = null, $admin = null)
+    public function validateData($password, $login, $email, $id = null, $status = null, $admin = null)
     {
         $data['password'] = $password;
         if (strlen($data['password']) < 10) {
@@ -147,13 +147,13 @@ class UserManager extends DataBase
         if (strlen($password) < 10) {
             $error['password'] = 'Votre mot de passe est trop court';
         }
-        if ($this->noDouble($login, $email) === 'doubleLogin') {
+        if ($this->isUnique($login, $email) === 'doubleLogin') {
             $error['doubleLogin'] = 'Le pseudo est déjà utilisé';
         }
-        if ($this->noDouble($login, $email) === 'doubleEmail') {
+        if ($this->isUnique($login, $email) === 'doubleEmail') {
             $error['doubleEmail'] = 'L\'email est déjà utilisé';
         }
-        if ($this->noDouble($login, $email) === 'doubleLoginEmail') {
+        if ($this->isUnique($login, $email) === 'doubleLoginEmail') {
             $error['doubleEmail'] = 'Le pseudo et l\'email sont déjà utilisés';
         }
         return $error;
@@ -186,7 +186,7 @@ class UserManager extends DataBase
     }
 
     //Vérifie s'il n'y a pas de doublon dans la bdd
-    public function noDouble($login, $email)
+    public function isUnique($login, $email)
     {
         $q = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE login='$login'");
         $q2 = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE email='$email'");
