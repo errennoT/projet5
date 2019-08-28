@@ -176,6 +176,10 @@ class Router
 						$status = intval($this->getParam($_GET, 'status'));
 						$this->ctrlAdminComment->validate($id, $status);
 						break;
+					case "comment":
+						$id = intval($this->getParam($_GET, 'id'));
+						$this->ctrlAdminComment->comment($id);
+						break;
 					default:
 						throw new Exception("Action non valide");
 						break;
@@ -198,6 +202,9 @@ class Router
 						break;
 					case "addmessage":
 						$this->ctrlMessage->addMessage();
+						break;
+					case "errormessage":
+						$this->ctrlMessage->errorMessage();
 						break;
 					default:
 						throw new Exception("Action non valide");

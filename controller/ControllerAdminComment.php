@@ -16,22 +16,22 @@ class ControllerAdminComment
     {
         $this->commentManager = new CommentManager();
         $this->renderview = new ViewManager();
+        $this->areaAdmin = new AreaAdmin;
     }
 
     //Liste des commentaires en attentes de validations
     public function listCommentValidate()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("admin");
         $this->renderview->generateView("AdminComment", null, 'comments', $comments);
     }
 
+    //Liste des commentaires validés
     public function listCommentUnvalidate()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("adminmanager");
         $this->renderview->generateView("AdminCommentManager", null, 'comments', $comments);
@@ -40,8 +40,7 @@ class ControllerAdminComment
     //Supprimer un commentaire
     public function delete($id, $status = null)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->delete($id);
 
@@ -55,8 +54,7 @@ class ControllerAdminComment
     //Status validé
     public function validate($id, $status = null)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->validate($id);
 
@@ -70,8 +68,7 @@ class ControllerAdminComment
     //Status en attente
     public function unvalidate($id, $status = null)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->unvalidate($id);
 
@@ -80,5 +77,15 @@ class ControllerAdminComment
         } elseif ($status === 0) {
             header('Location: index.php?c=admincommentfilter#list');
         }
+    }
+
+    //Afficher un commentaire
+    public function comment($id)
+    {
+        $this->areaAdmin->verifyAdmin();
+
+        $comment = $this->commentManager->get($id);
+
+        $this->renderview->generateView("Comment", null, 'comment', $comment);
     }
 }

@@ -39,7 +39,7 @@
             <?php foreach ($comments as $comment) : ?>
                 <tbody>
                     <tr>
-                        <th scope="row"><a href="index.php?p=post&id=<?= $this->clean($comment->postId());?>"><?= substr($this->clean($comment->content()), 0, 20)?></a></th>
+                        <th scope="row"><a href="index.php?c=comment&id=<?= $this->clean($comment->id());?>"><?= substr($this->clean($comment->content()), 0, 20)?></a></th>
                         <td><?= $this->clean($comment->author()) ?></td>
                         <td><?= $this->clean($comment->date()) ?></td>
                         <td><?= $this->replaceBoolByName($this->clean($comment->status()), "comment") ?></td>
