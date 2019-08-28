@@ -46,7 +46,6 @@ class PostManager extends DataBase
     public function get($id)
     {
         $id = (int) $id;
-
         $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post WHERE id = ' . $id);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);

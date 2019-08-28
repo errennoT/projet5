@@ -16,14 +16,14 @@ class ControllerAdminMessage
     {
         $this->messageManager = new MessageManager();
         $this->renderview = new ViewManager();
+        $this->areaAdmin = new AreaAdmin;
         
     }
 
     // Afficher tous les messages
     public function listMessage()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $messages = $this->messageManager->getList();
         $this->renderview->generateView("AdminListMessage", null, 'messages', $messages);
@@ -32,8 +32,7 @@ class ControllerAdminMessage
     //Afficher un message
     public function message($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $message = $this->messageManager->get($id);
 
@@ -43,8 +42,7 @@ class ControllerAdminMessage
     //Répondre à un message
     public function answerMessage($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $message = $this->messageManager->get($id);
 
@@ -57,7 +55,7 @@ class ControllerAdminMessage
                 $this->messageManager->delete($message);
 
                 header('location: index.php?m=listmessage#list');
-            } else { //ajout d'un try catch
+            } else {
                 header('location: index.php?m=errormessage');
             }
         }

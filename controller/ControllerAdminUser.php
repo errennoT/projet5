@@ -17,13 +17,13 @@ class ControllerAdminUser
     {
         $this->_userManager = new UserManager();
         $this->renderview = new ViewManager();
+        $this->areaAdmin = new AreaAdmin;
     }
 
     //Liste des utilisateurs
     public function listUser()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $users = $this->_userManager->getList();
 
@@ -33,8 +33,7 @@ class ControllerAdminUser
     //Supprimer un utilisateur
     public function delete($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->_userManager->delete($id);
         header('Location: index.php?u=adminuser#list');
@@ -43,8 +42,7 @@ class ControllerAdminUser
     //Bannir un utilisateur
     public function ban($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->_userManager->ban($id);
         header('Location: index.php?u=adminuser#list');
@@ -53,8 +51,7 @@ class ControllerAdminUser
     //Débannir un utilisateur
     public function unBan($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->_userManager->unBan($id);
         header('Location: index.php?u=adminuser#list');
@@ -63,8 +60,7 @@ class ControllerAdminUser
     //Définir un nouvel admin
     public function setAdmin($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->_userManager->setAdmin($id);
         header('Location: index.php?u=adminuser#list');
@@ -73,8 +69,7 @@ class ControllerAdminUser
     //Supprimer un administrateur
     public function unsetAdmin($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->_userManager->unsetAdmin($id);
         header('Location: index.php?u=adminuser#list');
@@ -83,8 +78,7 @@ class ControllerAdminUser
     //Modifier un utilisateur
     public function editUser($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $user = $this->_userManager->get($id);
 

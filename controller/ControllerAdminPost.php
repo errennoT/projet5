@@ -19,13 +19,13 @@ class ControllerAdminPost
     {
         $this->postManager = new PostManager();
         $this->renderview = new ViewManager();
+        $this->areaAdmin = new AreaAdmin;
     }
 
     // Afficher tous les articles
     public function listPost()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $posts = $this->postManager->getList("admin");
 
@@ -35,8 +35,7 @@ class ControllerAdminPost
     //Afficher un article
     public function post($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $post = $this->postManager->get($id);
         $this->renderview->generateView("Post", null, 'post', $post);
@@ -45,8 +44,7 @@ class ControllerAdminPost
     //Ajouter un article
     public function addPost()
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         if (!empty($_POST)) {
             $error = $this->postManager->errorPost(htmlentities($_POST['title']), htmlentities($_POST['content']), htmlentities($_POST['chapo']), "add");
@@ -66,8 +64,7 @@ class ControllerAdminPost
     //Supprimer un article
     public function delete($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->postManager->delete($id);
 
@@ -80,8 +77,7 @@ class ControllerAdminPost
     //Modifier un article
     public function editPost($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $post = $this->postManager->get($id);
 
@@ -102,8 +98,7 @@ class ControllerAdminPost
     //Status publié
     public function published($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->postManager->published($id);
         header('Location: index.php?p=adminpost#list');
@@ -112,8 +107,7 @@ class ControllerAdminPost
     //Status brouillon
     public function draft($id)
     {
-        $areaAdmin = $this->areaAdmin = new AreaAdmin;
-        $areaAdmin->verifyAdmin();
+        $this->areaAdmin->verifyAdmin();
 
         $this->postManager->draft($id);
         header('Location: index.php?p=adminpost#list');

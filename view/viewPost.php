@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 mx-auto">
         <p><?= nl2br($this->clean($post->content())); ?></p>
-        <a class="btn btn-primary" href="index.php?p=listpost">Retour</a>
+        <input class="btn btn-primary" type="button" value="Retour" onclick="history.go(-1)">
       </div>
     </div>
     <hr>
