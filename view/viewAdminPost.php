@@ -30,7 +30,7 @@
                 <tr>
                     <th scope="col">Titre</th>
                     <th scope="col">Auteur</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Date de création</th>
                     <th scope="col">Modifié</th>
                     <th scope="col">Status</th>
                     <th scope="col">Modifier</th>

@@ -67,6 +67,7 @@ $this->header = "Modifier un article" ?>
     <input type="hidden" id="id" name="id" value="<?= $post->id() ?>">
     <button class="btn btn-success" name="publish" type="submit">Publié</button>
     <button class="btn btn-primary" name="unpublish" type="submit">Brouillon</button>
+    <a class="btn btn-primary" href="index.php?p=adminpost">Retour</a>
   </form>
 
 </section>
