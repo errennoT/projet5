@@ -24,11 +24,11 @@ class ControllerAdmin
     {
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
         $areaAdmin->verifyAdmin();
-        $this->renderview->generateView("Admin");
+        $this->renderview->generateView(array('name' => "Admin"), 'layoutPageAdmin');
     }
 
     public function accesDenied()
     {
-        $this->renderview->generateView("AccesDenied");
+        $this->renderview->generateView(array('name' => "AccesDenied"), 'layout');
     }
 }

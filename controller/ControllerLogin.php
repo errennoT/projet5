@@ -31,16 +31,16 @@ class ControllerLogin
                     break;
                 default:
                     $error = $this->_userManager->getErrorStatus($authenticate);
-                    $this->renderview->generateView("Login", $error);
+                    $this->renderview->generateView(array('name' => "Login", 'error' => $error), 'layout');
                     break;
             }
         }
 
-        $this->renderview->generateView("Login");
+        $this->renderview->generateView(array('name' => "Login"), 'layout');
     }
 
     public function logout()
     {
-        $this->renderview->generateView("Logout");
+        $this->renderview->generateView(array('name' => "Logout"), 'layout');
     }
 }

@@ -25,7 +25,7 @@ class ControllerAdminComment
         $this->areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("admin");
-        $this->renderview->generateView("AdminComment", null, 'comments', $comments);
+        $this->renderview->generateView(array('name' => "AdminComment", 'function' => $comments, 'nameFunction' => 'comments'), 'layoutPageAdmin');
     }
 
     //Liste des commentaires validés
@@ -34,7 +34,7 @@ class ControllerAdminComment
         $this->areaAdmin->verifyAdmin();
 
         $comments = $this->commentManager->getList("adminmanager");
-        $this->renderview->generateView("AdminCommentManager", null, 'comments', $comments);
+        $this->renderview->generateView(array('name' => "AdminCommentManager", 'function' => $comments, 'nameFunction' => 'comments'), 'layoutPageAdmin');
     }
 
     //Supprimer un commentaire
@@ -86,6 +86,6 @@ class ControllerAdminComment
 
         $comment = $this->commentManager->get($id);
 
-        $this->renderview->generateView("Comment", null, 'comment', $comment);
+        $this->renderview->generateView(array('name' => "Comment", 'function' => $comment, 'nameFunction' => 'comment'), 'layoutPageAdmin');
     }
 }

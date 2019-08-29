@@ -7,13 +7,18 @@ use \Projet5\View\View;
 
 class ViewManager
 {
-    public function generateView($name, $error = null, $nameFunction = null, $function = null)
+    public function generateView($argument, $layout)
     {
-        $view = new View($name, $error);
-        if ($function === null) {
-            $view->generate(array());
+        if (isset($argument["error"])) {
+            $view = new View($argument["name"], $argument["error"]);
         } else {
-            $view->generate(array($nameFunction => $function));
+            $view = new View($argument["name"]);
+        }
+
+        if (isset($argument["function"])) {
+            $view->generate(array($argument["nameFunction"] => $argument["function"]), $layout);
+        } else {
+            $view->generate(array(), $layout);
         }
     }
 }

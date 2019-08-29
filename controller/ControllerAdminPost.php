@@ -29,7 +29,7 @@ class ControllerAdminPost
 
         $posts = $this->postManager->getList("admin");
 
-        $this->renderview->generateView("AdminPost", null, 'posts', $posts);
+        $this->renderview->generateView(array('name' => "AdminPost", 'function' => $posts, 'nameFunction' => 'posts'), 'layoutPageAdmin');
     }
 
     //Afficher un article
@@ -38,7 +38,7 @@ class ControllerAdminPost
         $this->areaAdmin->verifyAdmin();
 
         $post = $this->postManager->get($id);
-        $this->renderview->generateView("Post", null, 'post', $post);
+        $this->renderview->generateView(array('name' => "Post", 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
     }
 
     //Ajouter un article
@@ -54,11 +54,11 @@ class ControllerAdminPost
                 $this->postManager->add($post);
                 header('Location: index.php?p=adminpost#list');
             } else {
-                $this->renderview->generateView("AddPost", $error);
+                $this->renderview->generateView(array('name' => "AddPost", 'error' => $error), 'layoutPageAdmin');
             }
         }
 
-        $this->renderview->generateView("AddPost");
+        $this->renderview->generateView(array('name' => "AddPost"), 'layoutPageAdmin');
     }
 
     //Supprimer un article
@@ -89,10 +89,10 @@ class ControllerAdminPost
                 $this->postManager->update($post);
                 header('Location: index.php?p=adminpost#list');
             } else {
-                $this->renderview->generateView("EditPost", $error, 'post', $post);
+                $this->renderview->generateView(array('name' => "EditPost", 'error' => $error, 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
             }
         }
-        $this->renderview->generateView("EditPost", null, 'post', $post);
+        $this->renderview->generateView(array('name' => "EditPost", 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
     }
 
     //Status publié

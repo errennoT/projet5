@@ -25,7 +25,11 @@ class ControllerPost
     public function listPost()
     {
         $posts = $this->postManager->getList("user");
-        $this->renderview->generateView("ListPosts", null, 'posts', $posts);
+        $this->renderview->generateView(array(
+            'name' => "ListPosts",
+            'function' => $posts,
+            'nameFunction' => 'posts',
+        ), 'layout');
     }
 
     //Afficher un article
@@ -42,6 +46,6 @@ class ControllerPost
         $comments = $this->commentManager->getList("user", $id);
 
         $view = new View("Post", $error);
-        $view->generate(array('post' => $post, 'comments' => $comments));
+        $view->generate(array('post' => $post, 'comments' => $comments), 'layout');
     }
 }

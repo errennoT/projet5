@@ -26,7 +26,7 @@ class ControllerAdminMessage
         $this->areaAdmin->verifyAdmin();
 
         $messages = $this->messageManager->getList();
-        $this->renderview->generateView("AdminListMessage", null, 'messages', $messages);
+        $this->renderview->generateView(array('name' => "AdminListMessage", 'function' => $messages, 'nameFunction' => 'messages'), 'layoutPageAdmin');
     }
 
     //Afficher un message
@@ -36,7 +36,7 @@ class ControllerAdminMessage
 
         $message = $this->messageManager->get($id);
 
-        $this->renderview->generateView("Message", null, 'message', $message);
+        $this->renderview->generateView(array('name' => "Message", 'function' => $message, 'nameFunction' => 'message'), 'layoutPageAdmin');
     }
     
     //Répondre à un message

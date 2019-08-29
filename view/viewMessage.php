@@ -1,15 +1,7 @@
-<?php $this->header = $this->clean($message->surname()) . ' ' . $this->clean($message->name()) ?>
+<?php $this->header = "Répondre au message" ?>
+<?php $this->subheader = 'Message de ' . $this->clean($message->surname()) . ' ' . $this->clean($message->name()) ?>
 
-<section class="page-section">
-  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Répondre au message</h2>
-
-  <div class="divider-custom">
-    <div class="divider-custom-line"></div>
-    <div class="divider-custom-icon">
-      <i class="fas fa-star"></i>
-    </div>
-    <div class="divider-custom-line"></div>
-  </div>
+<br>
 
   <!-- View Article -->
   <div class="container">
