@@ -49,7 +49,7 @@ class ControllerComment
                 $comments = $this->commentManager->getList("user", $postId);
 
                 $view = new View("Post", $error);
-                $view->generate(array('post' => $post, 'comments' => $comments));
+                $view->generate(array('post' => $post, 'comments' => $comments), "layout");
             }
         }
     }

@@ -29,12 +29,13 @@ class ControllerRegister
                 $this->_userManager->add($user);
                 $_POST['login'] = "";
                 $_POST['email'] = "";
-                $this->renderview->generateView("Add", $error);
+
+                $this->renderview->generateView(array('name' => "Add", 'error' => $error), 'layout');
             } else {
-                $this->renderview->generateView("Add", $error);
+                $this->renderview->generateView(array('name' => "Add", 'error' => $error), 'layout');
             }
         }
 
-        $this->renderview->generateView("Add");
+        $this->renderview->generateView(array('name' => "Add"), 'layout');
     }
 }

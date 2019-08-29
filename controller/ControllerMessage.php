@@ -28,7 +28,7 @@ class ControllerMessage
                 $message = new Message($data);
                 $this->messageManager->add($message);
 
-                $this->renderview->generateView("MessageSend");
+                $this->renderview->generateView(array('name' => "MessageSend"), 'layout');
             } else { 
                 header('location: index.php?m=errormessage');
             }
@@ -37,6 +37,6 @@ class ControllerMessage
 
     public function errorMessage()
     {
-        $this->renderview->generateView("ErrorEmpty");
+        $this->renderview->generateView(array('name' => "ErrorEmpty"), 'layout');
     }
 }
