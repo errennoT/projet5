@@ -12,6 +12,7 @@ class View
     private $logo;
     private $header;
     private $subheader;
+    private $nav;
     private $error;
 
     public function __construct($u, $error = null)
@@ -22,16 +23,17 @@ class View
     }
 
     // Rempli le layout et affiche le contenu de la page
-    public function generate($datas)
+    public function generate($datas, $layout)
     {
         $content = $this->generateFile($this->file, $datas);
         $view = $this->generateFile(
-            'view/layout.php',
+            "view/$layout.php",
             array(
                 'title' => $this->title,
                 'logo' => $this->logo,
                 'header' => $this->header,
                 'subheader' => $this->subheader,
+                'nav' => $this->nav,
                 'content' => $content,
             )
         );

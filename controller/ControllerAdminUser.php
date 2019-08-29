@@ -27,7 +27,7 @@ class ControllerAdminUser
 
         $users = $this->_userManager->getList();
 
-        $this->renderview->generateView("AdminUser", null, 'users', $users);
+        $this->renderview->generateView(array('name' => "AdminUser",'function' => $users,'nameFunction' => 'users'), 'layoutPageAdmin');
     }
 
     //Supprimer un utilisateur
@@ -92,9 +92,14 @@ class ControllerAdminUser
             } else {
                 $user = $this->_userManager->get($id);
 
-                $this->renderview->generateView("EditUser", $error, 'user', $user);
+                $this->renderview->generateView(array(
+                    'name' => "EditUser",
+                    'error' => $error,
+                    'function' => $user,
+                    'nameFunction' => 'user'
+                ), 'layoutPageAdmin');
             }
         }
-        $this->renderview->generateView("EditUser", null, 'user', $user);
+        $this->renderview->generateView(array('name' => "EditUser",'function' => $user,'nameFunction' => 'user'), 'layoutPageAdmin');
     }
 }

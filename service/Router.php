@@ -223,13 +223,13 @@ class Router
 	// Affiche page d'accueil
 	private function home()
 	{
-		$this->renderview->generateView('Home');
+		$this->renderview->generateView(array('name' => "Home"), 'layout');
 	}
 
 	// Affiche une erreur (à voir plus tard)
 	private function error($msgError)
 	{
-		$this->renderview->generateView('Error', null, 'msgError', $msgError);
+		$this->renderview->generateView(array('name' => "Error", 'function' => $msgError, 'nameFunction' => 'msgError'), 'layout');
 	}
 
 	public function getParam($array, $name)
