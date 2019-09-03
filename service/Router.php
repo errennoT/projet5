@@ -16,7 +16,6 @@ use Projet5\Controller\ControllerAdminComment;
 use Projet5\Controller\ControllerMessage;
 use Projet5\Controller\ControllerAdminMessage;
 
-use Projet5\View\View;
 use Projet5\Service\ViewManager;
 use \Exception;
 
@@ -226,7 +225,7 @@ class Router
 		$this->renderview->generateView(array('name' => "Home"), 'layout');
 	}
 
-	// Affiche une erreur (à voir plus tard)
+	// Affiche une erreur
 	private function error($msgError)
 	{
 		$this->renderview->generateView(array('name' => "Error", 'function' => $msgError, 'nameFunction' => 'msgError'), 'layout');

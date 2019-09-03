@@ -2,7 +2,8 @@
 
 namespace Projet5\Model;
 
-class AreaAdmin{
+class AreaAdmin
+{
 
     //Vérifie si c'est un administrateur
     public function verifyAdmin()

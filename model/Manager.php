@@ -3,7 +3,7 @@
 namespace Projet5\Model;
 
 
-class DataBase
+class Manager
 {
     protected function dbConnect()
     {
@@ -19,7 +19,13 @@ class DataBase
 
     protected function executeSql($q)
     {
+        try {
         $q->execute();
         $q->closeCursor();
+        } catch (\PDOException $e)
+        {
+            echo "L'action a échoué.";
+            die;
+        }
     }
 }
