@@ -3,10 +3,10 @@
 namespace Projet5\Model;
 
 use \Projet5\Model\Comment;
-use \Projet5\Model\DataBase;
+use \Projet5\Model\Manager;
 use \PDO;
 
-class CommentManager extends DataBase
+class CommentManager extends Manager
 {
 
     public function add(Comment $comment)

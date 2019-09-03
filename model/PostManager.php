@@ -3,10 +3,10 @@
 namespace Projet5\Model;
 
 use \Projet5\Model\Post;
-use \Projet5\Model\DataBase;
+use \Projet5\Model\Manager;
 use \PDO;
 
-class PostManager extends DataBase
+class PostManager extends Manager
 {
 
     public function add(Post $post)
