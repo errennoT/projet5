@@ -33,7 +33,7 @@ class ControllerComment
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);
 
-                    $this->renderview->generateView("MessageComment", null);
+                    $this->renderview->generateView(array('name' => "MessageComment"), 'layout');
                 } elseif (isset($_SESSION['admin'])) {
                     $data = $this->commentManager->validateData(htmlentities($_POST['contentComment']), 1, $postId, htmlentities($_SESSION['admin']));
 

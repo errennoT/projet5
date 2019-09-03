@@ -2,10 +2,10 @@
 
 namespace Projet5\Model;
 
-use Projet5\Service\Hydrate;
+use Projet5\Model\DataManager;
 use Projet5\Service\ViewManager;
 
-class Post extends Hydrate
+class Post extends DataManager
 {
     private $_id;
     private $_title;
@@ -20,9 +20,9 @@ class Post extends Hydrate
     {
         if (is_array($data)) {
             $this->hydrate($data);
-        } else {
+        } else { //si le lien "$id=" est incorrect, renvoie une erreur
             $this->renderview = new ViewManager();
-            $this->renderview->generateView("Error");
+            $this->renderview->generateView(array('name' => "Error"), "layout");
         }
     }
 

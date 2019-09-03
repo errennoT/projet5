@@ -46,11 +46,11 @@ class ControllerAdminMessage
 
         $message = $this->messageManager->get($id);
 
-        if (!empty($_POST)) { //voir
+        if (!empty($_POST)) {
             $error = $this->messageManager->errorMessage(htmlentities($_POST['content']), "", "", "", "", "answer");
 
             if (empty($error)) {
-                $data = $this->messageManager->sendMessage(htmlentities($_POST['content']), "", "", htmlentities($_POST['email']));
+                $data = $this->messageManager->validateData(htmlentities($_POST['content']), "", "", htmlentities($_POST['email']));
                 mail($data['email'], $data['subject'], $data['content']);
                 $this->messageManager->delete($message);
 

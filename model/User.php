@@ -2,11 +2,10 @@
 
 namespace Projet5\Model;
 
-use Exception;
-use Projet5\Service\Hydrate;
+use Projet5\Model\DataManager;
 use Projet5\Service\ViewManager;
 
-class User extends Hydrate
+class User extends DataManager
 {
     private $_id;
     private $_login;
@@ -19,9 +18,9 @@ class User extends Hydrate
     {
         if (is_array($data)) {
             $this->hydrate($data);
-        } else {
+        } else { //si le lien "$id=" est incorrect, renvoie une erreur
             $this->renderview = new ViewManager();
-            $this->renderview->generateView("Error");
+            $this->renderview->generateView(array('name' => "Error"), "layout");
         }
     }
 

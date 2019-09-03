@@ -23,7 +23,7 @@ class ControllerRegister
         if (!empty($_POST)) {
             $error = $this->_userManager->getError($_POST['login'], $_POST['password'], $_POST['email']);
             if (empty($error)) {
-                $data = $this->_userManager->register(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), null, 1, 0);
+                $data = $this->_userManager->validateData(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), null, 1, 0);
                 $user = new User($data);
                 $error = 'succes';
                 $this->_userManager->add($user);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Projet5\Service;
+namespace Projet5\Model;
 
-class Hydrate
+class DataManager
 {
     protected function hydrate(array $data)
     {

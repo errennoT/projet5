@@ -2,10 +2,10 @@
 
 namespace Projet5\Model;
 
-use \Projet5\Model\DataBase;
+use \Projet5\Model\Manager;
 use \PDO;
 
-class UserManager extends DataBase
+class UserManager extends Manager
 {
 
     public function add(User $user)

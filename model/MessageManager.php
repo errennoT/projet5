@@ -3,10 +3,10 @@
 namespace Projet5\Model;
 
 use \Projet5\Model\Message;
-use \Projet5\Model\DataBase;
+use \Projet5\Model\Manager;
 use \PDO;
 
-class MessageManager extends DataBase
+class MessageManager extends Manager
 {
 
     public function add(Message $message)
