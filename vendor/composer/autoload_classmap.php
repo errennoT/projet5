@@ -30,4 +30,5 @@ return array(
     'Projet5\\Service\\Router' => $baseDir . '/service/Router.php',
     'Projet5\\Service\\ViewManager' => $baseDir . '/service/ViewManager.php',
     'Projet5\\View\\View' => $baseDir . '/view/View.php',
+    'Volnix\\CSRF\\CSRF' => $vendorDir . '/volnix/csrf/src/CSRF.php',
 );
