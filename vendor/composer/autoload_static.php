@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit4cf23fc741133070bdf40697e482fdac
 {
     public static $prefixLengthsPsr4 = array (
+        'V' => 
+        array (
+            'Volnix\\CSRF\\' => 12,
+        ),
         'P' => 
         array (
             'Projet5\\' => 8,
@@ -14,6 +18,10 @@ class ComposerStaticInit4cf23fc741133070bdf40697e482fdac
     );
 
     public static $prefixDirsPsr4 = array (
+        'Volnix\\CSRF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/volnix/csrf/src',
+        ),
         'Projet5\\' => 
         array (
             0 => __DIR__ . '/../..' . '/',
@@ -45,6 +53,7 @@ class ComposerStaticInit4cf23fc741133070bdf40697e482fdac
         'Projet5\\Service\\Router' => __DIR__ . '/../..' . '/service/Router.php',
         'Projet5\\Service\\ViewManager' => __DIR__ . '/../..' . '/service/ViewManager.php',
         'Projet5\\View\\View' => __DIR__ . '/../..' . '/view/View.php',
+        'Volnix\\CSRF\\CSRF' => __DIR__ . '/..' . '/volnix/csrf/src/CSRF.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

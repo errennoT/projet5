@@ -35,6 +35,7 @@
 
     <!-- Edit form -->
 <form class="container" action="index.php?u=edituser&id=<?= $user->id() ?>" method="POST">
+<input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>"/>
     <div class="form-group">
       <label for="login">Pseudo</label>
       <input type="text" class="form-control <?= isset($this->error['login']) ? 'is-invalid' : ''; ?>" name="login" placeholder="<?= $user->login() ?>" value="<?php if(isset($_POST['login'])) { echo htmlentities($_POST['login']); } else { echo ""; }?>">

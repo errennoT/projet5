@@ -9,6 +9,8 @@ use Projet5\Model\CommentManager;
 
 use Projet5\Service\ViewManager;
 
+use Volnix\CSRF\CSRF;
+
 class ControllerAdminPost
 {
     private $postManager;
@@ -81,7 +83,7 @@ class ControllerAdminPost
 
         $post = $this->postManager->get($id);
 
-        if (!empty($_POST)) {
+        if (!empty($_POST) && CSRF::validate($_POST) ) {
             $error = $this->postManager->errorPost(htmlentities($_POST['title']), htmlentities($_POST['content']), htmlentities($_POST['chapo']), "update", htmlentities($_POST['author']));
             if (empty($error)) {
                 $data = $this->postManager->validateData(htmlentities($_POST['title']), htmlentities($_POST['content']), isset($_POST['publish']) ? true : false, $_POST['chapo'], htmlentities($_POST['author']), htmlentities($_POST['id']));

@@ -7,6 +7,8 @@ use Projet5\Model\AreaAdmin;
 
 use Projet5\Service\ViewManager;
 
+use Volnix\CSRF\CSRF;
+
 class ControllerAdminMessage
 {
     private $messageManager;
@@ -17,7 +19,6 @@ class ControllerAdminMessage
         $this->messageManager = new MessageManager();
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin;
-        
     }
 
     // Afficher tous les messages
@@ -38,7 +39,7 @@ class ControllerAdminMessage
 
         $this->renderview->generateView(array('name' => "Message", 'function' => $message, 'nameFunction' => 'message'), 'layoutPageAdmin');
     }
-    
+
     //Répondre à un message
     public function answerMessage($id)
     {
@@ -46,7 +47,7 @@ class ControllerAdminMessage
 
         $message = $this->messageManager->get($id);
 
-        if (!empty($_POST)) {
+        if (!empty($_POST) && CSRF::validate($_POST)) {
             $error = $this->messageManager->errorMessage(htmlentities($_POST['content']), "", "", "", "", "answer");
 
             if (empty($error)) {
