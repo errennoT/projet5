@@ -38,45 +38,36 @@ class ControllerAdminComment
     }
 
     //Supprimer un commentaire
-    public function delete($id, $status = null)
+    public function delete($id)
     {
         $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->delete($id);
 
-        if ($status === 1) {
-            header('Location: index.php?c=admincomment#list');
-        } elseif ($status === 0) {
-            header('Location: index.php?c=admincommentfilter#list');
-        }
+        header('Location: ' . $_SERVER['HTTP_REFERER'] . '#list');
+        exit;
     }
 
     //Status validé
-    public function validate($id, $status = null)
+    public function validate($id)
     {
         $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->validate($id);
 
-        if ($status === 1) {
-            header('Location: index.php?c=admincomment#list');
-        } elseif ($status === 0) {
-            header('Location: index.php?c=admincommentfilter#list');
-        }
+        header('Location: ' . $_SERVER['HTTP_REFERER']. '#list');
+        exit;
     }
 
     //Status en attente
-    public function unvalidate($id, $status = null)
+    public function unvalidate($id)
     {
         $this->areaAdmin->verifyAdmin();
 
         $this->commentManager->unvalidate($id);
 
-        if ($status === 1) {
-            header('Location: index.php?c=admincomment#list');
-        } elseif ($status === 0) {
-            header('Location: index.php?c=admincommentfilter#list');
-        }
+        header('Location: ' . $_SERVER['HTTP_REFERER']. '#list');
+        exit;
     }
 
     //Afficher un commentaire

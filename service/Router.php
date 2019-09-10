@@ -80,27 +80,27 @@ class Router
 						$this->ctrlAdminUser->listUser();
 						break;
 					case "ban":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->ban($id);
 						break;
 					case "unban":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->unBan($id);
 						break;
 					case "delete":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->delete($id);
 						break;
 					case "newadmin":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->setAdmin($id);
 						break;
 					case "deleteadmin":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->unSetAdmin($id);
 						break;
 					case "edituser":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminUser->editUser($id);
 						break;
 					default:
@@ -124,22 +124,22 @@ class Router
 						$this->ctrlAdminPost->listPost();
 						break;
 					case "delete":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminPost->delete($id);
 						break;
 					case "addpost":
 						$this->ctrlAdminPost->addPost();
 						break;
 					case "unpublish":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminPost->draft($id);
 						break;
 					case "publish":
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminPost->published($id);
 						break;
 					case 'editpost':
-						$id = intval($this->getParam($_GET, 'id'));
+						$id = intval($this->getParam($_POST, 'id'));
 						$this->ctrlAdminPost->editPost($id);
 						break;
 					default:
@@ -161,19 +161,16 @@ class Router
 						$this->ctrlAdminComment->listCommentUnvalidate();
 						break;
 					case "delete":
-						$id = intval($this->getParam($_GET, 'id'));
-						$status = intval($this->getParam($_GET, 'status'));
-						$this->ctrlAdminComment->delete($id, $status);
+						$id = intval($this->getParam($_POST, 'id'));
+						$this->ctrlAdminComment->delete($id);
 						break;
 					case "unvalidate":
-						$id = intval($this->getParam($_GET, 'id'));
-						$status = intval($this->getParam($_GET, 'status'));
-						$this->ctrlAdminComment->unvalidate($id, $status);
+						$id = intval($this->getParam($_POST, 'id'));
+						$this->ctrlAdminComment->unvalidate($id);
 						break;
 					case "validate":
-						$id = intval($this->getParam($_GET, 'id'));
-						$status = intval($this->getParam($_GET, 'status'));
-						$this->ctrlAdminComment->validate($id, $status);
+						$id = intval($this->getParam($_POST, 'id'));
+						$this->ctrlAdminComment->validate($id);
 						break;
 					case "comment":
 						$id = intval($this->getParam($_GET, 'id'));
@@ -236,7 +233,7 @@ class Router
 		if (isset($array[$name])) {
 			return $array[$name];
 		} else {
-			throw new Exception("Paramètre '$name' absent.");
+			throw new Exception("Paramètre de lien invalide");
 		}
 	}
 }
