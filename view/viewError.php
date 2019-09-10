@@ -17,11 +17,11 @@
             echo "Erreur: $msgError";
         } else {
             echo "Erreur: lien invalide";
-         }
+        }
         ?>
     </div>
     <div class="container">
-        <a class="btn btn-primary" href="index.php?p=listpost">Retour</a>
+        <input class="btn btn-primary" type="button" value="Retour" onclick="history.go(-1)">
     </div>
 
 </section>

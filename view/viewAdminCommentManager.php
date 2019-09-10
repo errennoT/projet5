@@ -5,32 +5,47 @@
 HTML
 ?>
 
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Commentaire</th>
-                    <th scope="col">Auteur</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Changer status en</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-            </thead>
-            <?php foreach ($comments as $comment) : ?>
-                <tbody>
-                    <tr>
-                    <th scope="row"><a href="index.php?c=comment&id=<?= $this->clean($comment->id());?>"><?= substr($this->clean($comment->content()), 0, 20)?></a></th>
-                        <td><?= $this->clean($comment->author()) ?></td>
-                        <td><?= $this->clean($comment->date()) ?></td>
-                        <td><?= $this->replaceBoolByName($this->clean($comment->status()), "comment") ?></td>
-                        <td><?php if($this->clean($comment->status()) === "0") { echo "<a class='btn btn-success' href='index.php?c=unvalidate&id=" . $this->clean($comment->id()) . "&status=" . $this->clean($comment->status()) . "'>Validé</a>"; } elseif ($this->clean($comment->status()) === "1") { echo "<a class='btn btn-warning' href='index.php?c=validate&id=" . $this->clean($comment->id()) . "&status=" . $this->clean($comment->status()) . "'>En attente</a>";} ?></td>
-                        <td><?= "<a class='btn btn-danger' href='index.php?c=delete&id=" . $this->clean($comment->id()) . "&status=" . $this->clean($comment->status()) . "'>Supprimer</a>"; ?></td>
-                    </tr>
-                <?php endforeach; ?>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Commentaire</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Changer status en</th>
+                <th scope="col">Supprimer</th>
+            </tr>
+        </thead>
+        <?php foreach ($comments as $comment) : ?>
             <tbody>
-        </table>
-    </div>
+                <tr>
+                    <th scope="row"><a href="index.php?c=comment&id=<?= $this->clean($comment->id()); ?>"><?= substr($this->clean($comment->content()), 0, 20) ?></a></th>
+                    <td><?= $this->clean($comment->author()) ?></td>
+                    <td><?= $this->clean($comment->date()) ?></td>
+                    <td><?= $this->replaceBoolByName($this->clean($comment->status()), "comment") ?></td>
+
+                    <?php if ($this->clean($comment->status()) === "0") : ?>
+                        <form class="container" action="index.php?c=unvalidate" method="POST">
+                            <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                            <td><button class="btn btn-success" type="submit">Validé</button></td>
+                        </form>
+                    <?php elseif ($this->clean($comment->status()) === "1") : ?>
+                        <form class="container" action="index.php?c=validate" method="POST">
+                            <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                            <td><button class="btn btn-warning" type="submit">En attente</button></td>
+                        </form>
+                    <?php endif ?>
+
+                    <form class="container" action="index.php?c=delete" method="POST">
+                        <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                        <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
+                    </form>
+                </tr>
+            <?php endforeach; ?>
+            <tbody>
+    </table>
+</div>
 
 
 </section>
