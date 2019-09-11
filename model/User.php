@@ -25,7 +25,6 @@ class User extends DataManager
     }
 
     //getters list
-
     public function id()
     {
         return $this->_id;
@@ -57,7 +56,6 @@ class User extends DataManager
     }
 
     //setters list
-
     public function setId($id)
     {
         $id = (int) $id;

@@ -13,93 +13,90 @@ class Comment extends DataManager
     private $_postId;
     private $_author;
 
-public function __construct($data)
-{
-    if (is_array($data)) {
-        $this->hydrate($data);
-    } else { //si le lien "$id=" est incorrect, renvoie une erreur
-        $this->renderview = new ViewManager();
-        $this->renderview->generateView(array('name' => "Error"), "layout");
+    public function __construct($data)
+    {
+        if (is_array($data)) {
+            $this->hydrate($data);
+        } else { //si le lien "$id=" est incorrect, renvoie une erreur
+            $this->renderview = new ViewManager();
+            $this->renderview->generateView(array('name' => "Error"), "layout");
+        }
     }
-}   
 
-//getters list
-public function id()
-{
-    return $this->_id;
-}
-
-public function content()
-{
-    return $this->_content;
-}
-
-public function date()
-{
-    return $this->_date;
-}
-
-public function status()
-{
-    return $this->_status;
-}
-
-public function postId()
-{
-    return $this->_postId;
-}
-
-public function author()
-{
-    return $this->_author;
-}
-
-//setters list
-
-public function setId($id)
-{
-    $id = (int) $id;
-
-    if ($id > 0) {
-        $this->_id = $id;
+    //getters list
+    public function id()
+    {
+        return $this->_id;
     }
-}
 
-public function setContent($content)
-{
-    if (is_string($content)){
-        $this->_content = $content;
+    public function content()
+    {
+        return $this->_content;
     }
-}
 
-public function setDate($date)
-{
+    public function date()
+    {
+        return $this->_date;
+    }
+
+    public function status()
+    {
+        return $this->_status;
+    }
+
+    public function postId()
+    {
+        return $this->_postId;
+    }
+
+    public function author()
+    {
+        return $this->_author;
+    }
+
+    //setters list
+    public function setId($id)
+    {
+        $id = (int) $id;
+
+        if ($id > 0) {
+            $this->_id = $id;
+        }
+    }
+
+    public function setContent($content)
+    {
+        if (is_string($content)) {
+            $this->_content = $content;
+        }
+    }
+
+    public function setDate($date)
+    {
         $this->_date = $date;
-}
+    }
 
-public function setStatus($status)
-{
-    $status = (int) $status;
-    if ($status === 0 || $status === 1){
-        $this->_status = $status;
+    public function setStatus($status)
+    {
+        $status = (int) $status;
+        if ($status === 0 || $status === 1) {
+            $this->_status = $status;
+        }
+    }
+
+    public function setPostId($postId)
+    {
+        $postId = (int) $postId;
+
+        if ($postId > 0) {
+            $this->_postId = $postId;
+        }
+    }
+
+    public function setAuthor($author)
+    {
+        if (is_string($author)) {
+            $this->_author = $author;
+        }
     }
 }
-
-public function setPostId($postId)
-{
-    $postId = (int) $postId;
-
-    if ($postId > 0) {
-        $this->_postId = $postId;
-    }
-}
-
-public function setAuthor($author)
-{
-    if (is_string($author)){
-        $this->_author = $author;
-    }
-}
-
-}
-

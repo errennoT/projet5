@@ -51,12 +51,12 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=logout">Se déconnecter</a>
             <?php elseif (!empty($_SESSION['admin'])) : ?>
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=admin">Administration</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=logout">Se déconnecter</a>
-            <?php else : ?>
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=login">Se connecter</a>
-            <?php endif ?>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=logout">Se déconnecter</a>
+          <?php else : ?>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=login">Se connecter</a>
+          <?php endif ?>
           </li>
         </ul>
       </div>

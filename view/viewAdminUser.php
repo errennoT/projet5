@@ -16,7 +16,6 @@
             </tr>
         </thead>
 
-
         <?php foreach ($users as $user) : ?>
             <tbody>
                 <tr>
@@ -60,7 +59,7 @@
                     <?php endif ?>
                 </tr>
             <tbody>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
     </table>
 </div>
 

@@ -16,6 +16,7 @@ class ControllerLogin
         $this->renderview = new ViewManager();
     }
 
+    //Se connecter
     public function login()
     {
         if (!empty($_POST)) {
@@ -39,8 +40,10 @@ class ControllerLogin
         $this->renderview->generateView(array('name' => "Login"), 'layout');
     }
 
+    //Se déconnecter
     public function logout()
     {
+        $this->_userManager->logout();
         $this->renderview->generateView(array('name' => "Logout"), 'layout');
     }
 }

@@ -23,28 +23,28 @@ class UserManager extends Manager
 
     public function delete(int $id)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM user WHERE id = '. $id);
+        $q = $this->dbConnect()->prepare('DELETE FROM user WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
     public function ban(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = '. $id);
+        $q = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
     public function unBan(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = '. $id);
+        $q = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
 
     public function setAdmin(int $id)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = '. $id);
+        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = ' . $id);
 
         $this->executeSql($q);
     }
@@ -181,7 +181,6 @@ class UserManager extends Manager
         if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
             unset($_SESSION['user']);
             unset($_SESSION['admin']);
-            header('Location: index.php');
         }
     }
 
