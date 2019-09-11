@@ -20,6 +20,7 @@ class ControllerAdmin
         $this->renderview = new ViewManager();
     }
 
+    //Affiche l'espace administrateur
     public function adminArea()
     {
         $areaAdmin = $this->areaAdmin = new AreaAdmin;
@@ -27,6 +28,7 @@ class ControllerAdmin
         $this->renderview->generateView(array('name' => "Admin"), 'layoutPageAdmin');
     }
 
+    //Affiche une page d'erreur si la personne n'est pas administrateur
     public function accesDenied()
     {
         $this->renderview->generateView(array('name' => "AccesDenied"), 'layout');

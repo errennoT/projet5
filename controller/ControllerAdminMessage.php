@@ -21,7 +21,7 @@ class ControllerAdminMessage
         $this->areaAdmin = new AreaAdmin;
     }
 
-    // Afficher tous les messages
+    //Afficher tous les messages
     public function listMessage()
     {
         $this->areaAdmin->verifyAdmin();

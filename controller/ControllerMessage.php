@@ -35,6 +35,7 @@ class ControllerMessage
         }
     }
 
+    //Affiche un message d'erreur si le formulaire est incorrect
     public function errorMessage()
     {
         $this->renderview->generateView(array('name' => "ErrorEmpty"), 'layout');

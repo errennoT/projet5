@@ -9,10 +9,9 @@ class Manager
     {
         try {
             $db = new \PDO('mysql:host=localhost;dbname=project5', 'root', '');
-        }catch (\PDOException $e)
-        {
-          echo 'La connexion a échoué.<br />';
-          die;
+        } catch (\PDOException $e) {
+            echo 'La connexion a échoué.<br />';
+            die;
         }
         return $db;
     }
@@ -20,10 +19,9 @@ class Manager
     protected function executeSql($q)
     {
         try {
-        $q->execute();
-        $q->closeCursor();
-        } catch (\PDOException $e)
-        {
+            $q->execute();
+            $q->closeCursor();
+        } catch (\PDOException $e) {
             echo "L'action a échoué.";
             die;
         }

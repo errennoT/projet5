@@ -21,10 +21,11 @@ class ControllerComment
         $this->renderview = new ViewManager();
     }
 
+    //Ajouter un commentaire en tant qu'administrateur
     public function addComment($postId)
     {
         if (!empty($_POST)) {
-            $error = $this->commentManager->errorComment($_POST['contentComment']);
+            $error = $this->commentManager->errorComment(htmlentities($_POST['contentComment']));
 
             if (empty($error)) {
                 if (isset($_SESSION['user'])) {
