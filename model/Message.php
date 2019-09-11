@@ -56,7 +56,6 @@ class Message extends DataManager
     }
 
     //setters list
-
     public function setId($id)
     {
         $id = (int) $id;

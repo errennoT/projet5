@@ -216,18 +216,19 @@ class Router
 		}
 	}
 
-	// Affiche page d'accueil
+	//Affiche page d'accueil
 	private function home()
 	{
 		$this->renderview->generateView(array('name' => "Home"), 'layout');
 	}
 
-	// Affiche une erreur
+	//Affiche une erreur
 	private function error($msgError)
 	{
 		$this->renderview->generateView(array('name' => "Error", 'function' => $msgError, 'nameFunction' => 'msgError'), 'layout');
 	}
 
+	//Permet de rassembler get['id'] ou post['id'] + mettre une erreur si c'est invalide
 	public function getParam($array, $name)
 	{
 		if (isset($array[$name])) {

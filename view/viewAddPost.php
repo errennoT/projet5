@@ -20,6 +20,7 @@
   <?php endif?> 
 
     <form class="container" action="" method="POST">
+    <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
     <div class="form-group">
       <label for="title">Titre</label>
       <input type="text" class="form-control" name="title" placeholder="Titre de l'article" value="<?php if(isset($_POST['title'])) { echo htmlentities($_POST['title']); } else { echo ""; }?>">

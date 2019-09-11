@@ -39,7 +39,6 @@ HTML
                         </form>
                     <?php endif ?>
 
-
                     <form class="container" action="index.php?c=delete" method="POST">
                         <input type="hidden" name="id" value="<?= $comment->id() ?>" />
                         <td><button class="btn btn-danger" type="submit">Supprimer</button></td>

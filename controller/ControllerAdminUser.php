@@ -85,7 +85,7 @@ class ControllerAdminUser
         $user = $this->_userManager->get($id);
 
         if (!empty($_POST) && CSRF::validate($_POST) ) {
-            $error = $this->_userManager->getError($_POST['login'], $_POST['password'], $_POST['email']);
+            $error = $this->_userManager->getError(htmlentities($_POST['login']), htmlentities($_POST['password']), htmlentities($_POST['email']));
             if (empty($error)) {
                 $data = $this->_userManager->validateData(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), htmlentities($_POST['id']));
                 $user = new User($data);
