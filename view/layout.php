@@ -92,10 +92,10 @@
         <!-- Footer Social Icons -->
         <div class="col-lg-4 mb-5 mb-lg-0">
           <h4 class="text-uppercase mb-4">CV et profil LinkedIn</h4>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
+          <a class="btn btn-outline-light btn-social mx-1" href="public/cv.pdf">
             <i class="fab fa-fw fa"></i>
           </a>
-          <a class="btn btn-outline-light btn-social mx-1" href="#">
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/romain-g-82b387177">
             <i class="fab fa-fw fa-linkedin-in"></i>
           </a>
 

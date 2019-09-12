@@ -85,11 +85,13 @@
 
     <div class="container">
       <div class="row justify-content-md-center">
-        <?= $nav ?>
-        <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?u=adminuser">Utilisateurs</a>
-        <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?p=adminpost">Articles</a>
-        <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?c=admincommentfilter">Commentaires</a>
-        <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?m=listmessage">Messages</a>
+        <div class="col-md-auto">
+          <?= $nav ?>
+          <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?u=adminuser">Utilisateurs</a>
+          <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?p=adminpost">Articles</a>
+          <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?c=admincommentfilter">Commentaires</a>
+          <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?m=listmessage">Messages</a>
+        </div>
       </div>
     </div>
 

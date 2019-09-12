@@ -1,2 +1,2 @@
-<?php $this->header = "Espace Administrateur" ?>
+<?php $this->header = "Espace Admin" ?>
 <?php $this->subheader = "Administration" ?>
