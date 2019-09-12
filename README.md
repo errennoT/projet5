@@ -1,8 +1,22 @@
 # Projet 5 - OpenClassrooms
 
-[Lien](url_du_lien) texte ...
+La BDD est dans le dossier bdd
+Les schémas UML sont dans le dossier uml
 
-## Titre ...
+## Comment accéder à l'espace administrateur ?
 
-*liste
-*liste
+*Se connecter en tant qu'administrateur
+*login = administrateur / mdp= administrateur
+*Donne la possibilité de gérer les utilisateurs, les articles, les commentaires ainsi que les messages
+
+## Comment ajouter un article?
+
+*Se connecter en tant qu'administrateur
+
+## Comment ajouter un commentaire?
+
+*Se connecter en tant qu'utilisateur ou administrateur
+
+## Comment envoyer un message?
+
+*Remplir le formulaire sur la page principale, il suffit d'être invité
