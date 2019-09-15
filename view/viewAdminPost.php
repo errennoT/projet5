@@ -35,17 +35,20 @@ HTML
 
                     <?php if ($this->clean($post->status()) === "0") : ?>
                         <form class="container" action="index.php?p=unpublish" method="POST">
+                            <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= $post->id() ?>" />
                             <td><button class="btn btn-success" type="submit">Publié</button></td>
                         </form>
                     <?php elseif ($this->clean($post->status()) === "1") : ?>
                         <form class="container" action="index.php?p=publish" method="POST">
+                            <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= $post->id() ?>" />
                             <td><button class="btn btn-warning" type="submit">Brouillon</button></td>
                         </form>
                     <?php endif ?>
 
                     <form class="container" action="index.php?p=delete" method="POST">
+                        <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                         <input type="hidden" name="id" value="<?= $post->id() ?>" />
                         <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
                     </form>

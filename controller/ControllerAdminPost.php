@@ -8,6 +8,7 @@ use Projet5\Model\AreaAdmin;
 use Projet5\Model\CommentManager;
 
 use Projet5\Service\ViewManager;
+use Projet5\Service\SecurityCsrf;
 
 use Volnix\CSRF\CSRF;
 
@@ -21,7 +22,8 @@ class ControllerAdminPost
     {
         $this->postManager = new PostManager();
         $this->renderview = new ViewManager();
-        $this->areaAdmin = new AreaAdmin;
+        $this->areaAdmin = new AreaAdmin();
+        $this->csrf = new SecurityCsrf();
     }
 
     // Afficher tous les articles
@@ -67,6 +69,7 @@ class ControllerAdminPost
     public function delete($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->postManager->delete($id);
 
@@ -101,6 +104,7 @@ class ControllerAdminPost
     public function published($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->postManager->published($id);
         header('Location: index.php?p=adminpost#list');
@@ -110,6 +114,7 @@ class ControllerAdminPost
     public function draft($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->postManager->draft($id);
         header('Location: index.php?p=adminpost#list');
