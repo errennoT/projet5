@@ -7,6 +7,7 @@ use Projet5\Model\UserManager;
 use Projet5\Model\AreaAdmin;
 
 use Projet5\Service\ViewManager;
+use Projet5\Service\SecurityCsrf;
 
 use Volnix\CSRF\CSRF;
 
@@ -20,6 +21,7 @@ class ControllerAdminUser
         $this->_userManager = new UserManager();
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin;
+        $this->csrf = new SecurityCsrf();
     }
 
     //Liste des utilisateurs
@@ -36,6 +38,7 @@ class ControllerAdminUser
     public function delete($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->_userManager->delete($id);
         header('Location: index.php?u=adminuser#list');
@@ -45,6 +48,7 @@ class ControllerAdminUser
     public function ban($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->_userManager->ban($id);
         header('Location: index.php?u=adminuser#list');
@@ -54,6 +58,7 @@ class ControllerAdminUser
     public function unBan($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->_userManager->unBan($id);
         header('Location: index.php?u=adminuser#list');
@@ -63,6 +68,7 @@ class ControllerAdminUser
     public function setAdmin($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->_userManager->setAdmin($id);
         header('Location: index.php?u=adminuser#list');
@@ -72,6 +78,7 @@ class ControllerAdminUser
     public function unsetAdmin($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->_userManager->unsetAdmin($id);
         header('Location: index.php?u=adminuser#list');

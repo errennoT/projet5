@@ -32,28 +32,33 @@
 
                         <?php if ($this->clean($user->status()) === "0") : ?>
                             <form action="index.php?u=unban" method="POST">
+                                <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                                 <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                 <td><button class="btn btn-success" type="submit">Débannir</button></td>
                             </form>
                         <?php elseif ($this->clean($user->status()) === "1") : ?>
                             <form action="index.php?u=ban" method="POST">
+                                <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                                 <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                 <td><button class="btn btn-warning" type="submit">Bannir</button></td>
                             </form>
                         <?php endif ?></td>
 
                         <form action="index.php?u=delete" method="POST">
+                            <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= $user->id() ?>" />
                             <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
                         </form>
 
                         <?php if ($this->clean($user->admin()) === "0") : ?>
                             <form action="index.php?u=newadmin" method="POST">
+                                <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                                 <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                 <td><button class="btn btn-success" type="submit">Administrateur</button></td>
                             </form>
                         <?php elseif ($this->clean($user->admin()) === "1") : ?>
                             <form action="index.php?u=deleteadmin" method="POST">
+                                <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                                 <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                 <td><button class="btn btn-warning" type="submit">Utilisateur</button></td>
                             </form>
