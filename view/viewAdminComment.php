@@ -29,17 +29,20 @@ HTML
 
                     <?php if ($this->clean($comment->status()) === "0") : ?>
                         <form class="container" action="index.php?c=unvalidate" method="POST">
+                            <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= $comment->id() ?>" />
                             <td><button class="btn btn-success" type="submit">Validé</button></td>
                         </form>
                     <?php elseif ($this->clean($comment->status()) === "1") : ?>
                         <form class="container" action="index.php?c=validate" method="POST">
+                            <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= $comment->id() ?>" />
                             <td><button class="btn btn-warning" type="submit">En attente</button></td>
                         </form>
                     <?php endif ?>
 
                     <form class="container" action="index.php?c=delete" method="POST">
+                        <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                         <input type="hidden" name="id" value="<?= $comment->id() ?>" />
                         <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
                     </form>

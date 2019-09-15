@@ -6,6 +6,9 @@ use \Projet5\Model\CommentManager;
 use \Projet5\Model\AreaAdmin;
 
 use Projet5\Service\ViewManager;
+use Projet5\Service\SecurityCsrf;
+
+use Volnix\CSRF\CSRF;
 
 class ControllerAdminComment
 {
@@ -16,7 +19,8 @@ class ControllerAdminComment
     {
         $this->commentManager = new CommentManager();
         $this->renderview = new ViewManager();
-        $this->areaAdmin = new AreaAdmin;
+        $this->areaAdmin = new AreaAdmin();
+        $this->csrf = new SecurityCsrf();
     }
 
     //Liste des commentaires en attentes de validations
@@ -41,6 +45,7 @@ class ControllerAdminComment
     public function delete($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->commentManager->delete($id);
 
@@ -52,6 +57,7 @@ class ControllerAdminComment
     public function validate($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->commentManager->validate($id);
 
@@ -63,6 +69,7 @@ class ControllerAdminComment
     public function unvalidate($id)
     {
         $this->areaAdmin->verifyAdmin();
+        $this->csrf->testCsrf(CSRF::validate($_POST));
 
         $this->commentManager->unvalidate($id);
 

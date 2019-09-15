@@ -20,7 +20,7 @@ class ControllerAdminUser
     {
         $this->_userManager = new UserManager();
         $this->renderview = new ViewManager();
-        $this->areaAdmin = new AreaAdmin;
+        $this->areaAdmin = new AreaAdmin();
         $this->csrf = new SecurityCsrf();
     }
 
