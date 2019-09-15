@@ -30,7 +30,7 @@ class ControllerMessage
 
                 $this->renderview->generateView(array('name' => "MessageSend"), 'layout');
             } else { 
-                header('location: index.php?m=errormessage');
+                $this->renderview->generateView(array('name' => "Error", 'function' => "Le message est vide. Veuillez remplir correctement le formulaire", 'nameFunction' => 'msgError'), 'layout');
             }
         }
     }
@@ -38,6 +38,6 @@ class ControllerMessage
     //Affiche un message d'erreur si le formulaire est incorrect
     public function errorMessage()
     {
-        $this->renderview->generateView(array('name' => "ErrorEmpty"), 'layout');
+        $this->renderview->generateView(array('name' => "Error", 'function' => "Le formulaire doit être rempli entièrement", 'nameFunction' => 'msgError'), 'layout');
     }
 }

@@ -16,7 +16,7 @@
         <?php if (isset($msgError)) {
             echo "Erreur: $msgError";
         } else {
-            echo "Oops cela n'aurait pas dû se produire";
+            echo "Erreur le lien est invalide";
         }
         ?>
     </div>
