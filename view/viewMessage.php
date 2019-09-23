@@ -6,7 +6,7 @@
 <!-- View Article -->
 <div class="container">
   <h4>Message du <?= $this->clean($message->date()) ?></h4>
-  Ecrit par : <?= $this->header ?>
+  Ecrit par : <?= $this->clean($message->surname()) ?>
   <p>@ mail : <?= $this->clean($message->email()) ?></p>
 </div>
 
@@ -26,7 +26,7 @@
 <form class="container" action="index.php?m=answermessage&id=<?= $message->id() ?>" method="POST">
   <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
   <div class="form-group">
-    <h5>Répondre à <?= $this->header ?></h5>
+    <h5>Répondre à <?= $this->clean($message->surname()) ?></h5>
     <input type="text" class="form-control" name="email" value="<?= $this->clean($message->email()) ?>" readonly>
   </div>
   <div class="form-group">

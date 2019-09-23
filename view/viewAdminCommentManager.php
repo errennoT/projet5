@@ -20,28 +20,28 @@ HTML
         <?php foreach ($comments as $comment) : ?>
             <tbody>
                 <tr>
-                    <th scope="row"><a href="index.php?c=comment&id=<?= $this->clean($comment->id()); ?>"><?= substr($this->clean($comment->content()), 0, 20) ?></a></th>
-                    <td><?= $this->clean($comment->author()) ?></td>
-                    <td><?= $this->clean($comment->date()) ?></td>
-                    <td><?= $this->replaceBoolByName($this->clean($comment->status()), "comment") ?></td>
+                    <th scope="row"><a href="index.php?c=comment&id=<?= htmlentities($comment->id()); ?>"><?= substr($this->clean($comment->content()), 0, 20) ?></a></th>
+                    <td><?= htmlspecialchars($comment->author(), ENT_QUOTES, 'UTF-8', false) ?></td>
+                    <td><?= htmlspecialchars($comment->date(), ENT_QUOTES, 'UTF-8', false) ?></td>
+                    <td><?= $this->replaceBoolByName(htmlentities($comment->status()), "comment") ?></td>
 
-                    <?php if ($this->clean($comment->status()) === "0") : ?>
+                    <?php if (htmlentities($comment->status()) === "0") : ?>
                         <form class="container" action="index.php?c=unvalidate" method="POST">
                             <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
-                            <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                            <input type="hidden" name="id" value="<?= htmlentities($comment->id()) ?>" />
                             <td><button class="btn btn-success" type="submit">Validé</button></td>
                         </form>
-                    <?php elseif ($this->clean($comment->status()) === "1") : ?>
+                    <?php elseif (htmlentities($comment->status()) === "1") : ?>
                         <form class="container" action="index.php?c=validate" method="POST">
                             <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
-                            <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                            <input type="hidden" name="id" value="<?= htmlentities($comment->id()) ?>" />
                             <td><button class="btn btn-warning" type="submit">En attente</button></td>
                         </form>
                     <?php endif ?>
 
                     <form class="container" action="index.php?c=delete" method="POST">
                         <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
-                        <input type="hidden" name="id" value="<?= $comment->id() ?>" />
+                        <input type="hidden" name="id" value="<?= htmlentities($comment->id()) ?>" />
                         <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
                     </form>
                 </tr>

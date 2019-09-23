@@ -16,13 +16,13 @@
 
   <?php if(isset($this->error['incorrect'])): ?>
     <div class="container alert alert-danger">
-      <?= $this->error['incorrect'] ?>
+      <?= htmlentities($this->error['incorrect']) ?>
     </div>
   <?php endif ?>
 
   <?php if(isset($this->error['ban'])): ?>
     <div class="container alert alert-danger">
-      <?= $this->error['ban'] ?>
+      <?= htmlentities($this->error['ban']) ?>
     </div>
   <?php endif?> 
 

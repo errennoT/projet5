@@ -3,10 +3,10 @@
 namespace Projet5\View;
 
 use \Exception;
+use Projet5\Service\SecuritySuperGlobal;
 
 class View
 {
-
     private $file;
     private $title;
     private $logo;
@@ -15,11 +15,14 @@ class View
     private $nav;
     private $error;
 
-    public function __construct($u, $error = null)
+    private $superGlobal;
+
+    public function __construct($nameFile, $error = null)
     {
         // Selectionne le fichier vu + initialisation des erreurs pour le formulaires
-        $this->file = "view/view" . $u . ".php";
+        $this->file = "view/view" . $nameFile . ".php";
         $this->error = $error;
+        $this->superGlobal = new SecuritySuperGlobal();
     }
 
     // Rempli le layout et affiche le contenu de la page
@@ -48,15 +51,21 @@ class View
             ob_start();
             require $file;
             return ob_get_clean();
-        } else {
-            throw new Exception("Fichier '$file' introuvable");
         }
+        throw new Exception("Fichier '$file' introuvable");
     }
 
     // Sécurise les données entrées par l'utilisateur
     private function clean($data)
     {
         return htmlspecialchars($data, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    // Coupe la phrase à 20 caractères
+    private function cut($data)
+    {
+        mb_internal_encoding("UTF-8");
+        return mb_substr($data, 0, 20);
     }
 
     //Remplace le booléan par une information

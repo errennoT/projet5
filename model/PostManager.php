@@ -11,44 +11,44 @@ class PostManager extends Manager
 
     public function add(Post $post)
     {
-        $q = $this->dbConnect()->prepare('INSERT INTO post(title, content, date, status, chapo, author) VALUES (:title, :content, NOW(), :status, :chapo, :author)');
+        $sql = $this->dbConnect()->prepare('INSERT INTO post(title, content, date, status, chapo, author) VALUES (:title, :content, NOW(), :status, :chapo, :author)');
 
-        $q->bindValue(':title', $post->title(), PDO::PARAM_STR);
-        $q->bindValue(':content', $post->content(), PDO::PARAM_STR);
-        $q->bindValue(':status', $post->status(), PDO::PARAM_BOOL);
-        $q->bindValue(':chapo', $post->chapo(), PDO::PARAM_STR);
-        $q->bindValue(':author', $post->author(), PDO::PARAM_STR);
+        $sql->bindValue(':title', $post->title(), PDO::PARAM_STR);
+        $sql->bindValue(':content', $post->content(), PDO::PARAM_STR);
+        $sql->bindValue(':status', $post->status(), PDO::PARAM_BOOL);
+        $sql->bindValue(':chapo', $post->chapo(), PDO::PARAM_STR);
+        $sql->bindValue(':author', $post->author(), PDO::PARAM_STR);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function delete(int $id)
+    public function delete(int $postId)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM post WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('DELETE FROM post WHERE id = ' . $postId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function published(int $id)
+    public function published(int $postId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET status = 0 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE post SET status = 0 WHERE id = ' . $postId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function draft(int $id)
+    public function draft(int $postId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET status = 1 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE post SET status = 1 WHERE id = ' . $postId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function get($id)
+    public function get($postId)
     {
-        $id = (int) $id;
-        $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post WHERE id = ' . $id);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $postId = (int) $postId;
+        $sql = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post WHERE id = ' . $postId);
+        $sql->execute(array($postId));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         return new Post($data);
     }
@@ -60,15 +60,15 @@ class PostManager extends Manager
 
         switch ($status) {
             case "admin":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post ORDER BY id desc');
+                $sql = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated, status, chapo, author FROM post ORDER BY id desc');
                 break;
             case "user":
-                $q = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated,status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
+                $sql = $this->dbConnect()->prepare('SELECT id, title, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, DATE_FORMAT(updated, "%d/%m/%Y à %Hh%i") AS updated,status, chapo, author FROM post WHERE status = "1" ORDER BY id desc');
                 break;
         }
 
-        $q->execute(array());
-        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+        $sql->execute(array());
+        while ($data = $sql->fetch(PDO::FETCH_ASSOC)) {
             $post[] = new Post($data);
         }
 
@@ -77,27 +77,27 @@ class PostManager extends Manager
 
     public function update(Post $post)
     {
-        $q = $this->dbConnect()->prepare('UPDATE post SET title = :title, content = :content, updated = NOW(), status = :status, chapo = :chapo, author = :author WHERE id = :id');
+        $sql = $this->dbConnect()->prepare('UPDATE post SET title = :title, content = :content, updated = NOW(), status = :status, chapo = :chapo, author = :author WHERE id = :id');
 
 
-        $q->bindValue(':title', $post->title(), PDO::PARAM_STR);
-        $q->bindValue(':content', $post->content(), PDO::PARAM_STR);
-        $q->bindValue(':status', $post->status(), PDO::PARAM_BOOL);
-        $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
-        $q->bindValue(':chapo', $post->chapo(), PDO::PARAM_STR);
-        $q->bindValue(':author', $post->author(), PDO::PARAM_STR);
+        $sql->bindValue(':title', $post->title(), PDO::PARAM_STR);
+        $sql->bindValue(':content', $post->content(), PDO::PARAM_STR);
+        $sql->bindValue(':status', $post->status(), PDO::PARAM_BOOL);
+        $sql->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $sql->bindValue(':chapo', $post->chapo(), PDO::PARAM_STR);
+        $sql->bindValue(':author', $post->author(), PDO::PARAM_STR);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
     //Vérifie les données
-    public function validateData($title, $content, $status, $chapo, $author, $id = null)
+    public function validateData($title, $content, $status, $chapo, $author, $postId = null)
     {
         $data['title'] = $title;
         $data['content'] = $content;
         $data['chapo'] = $chapo;
         $data['author'] = $author;
-        $data['id'] = $id;
+        $data['id'] = $postId;
 
         switch ($status) {
             case true:

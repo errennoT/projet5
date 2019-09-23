@@ -15,19 +15,19 @@ class Manager
     protected function dbConnect()
     {
         try {
-            $db = new \PDO('mysql:host=localhost;dbname=project5', 'root', '');
+            $dbm = new \PDO('mysql:host=localhost;dbname=project5', 'root', '');
         } catch (\PDOException $e) {
             $this->renderview->generateView(array('name' => "Error", 'function' => "La connexion à la base de données a échoué", 'nameFunction' => 'msgError'), 'layout');
             die;
         }
-        return $db;
+        return $dbm;
     }
 
-    protected function executeSql($q)
+    protected function executeSql($sql)
     {
         try {
-            $q->execute();
-            $q->closeCursor();
+            $sql->execute();
+            $sql->closeCursor();
         } catch (\PDOException $e) {
             $this->renderview->generateView(array('name' => "Error", 'function' => "L'intéraction avec la base de données n'a pas abouti", 'nameFunction' => 'msgError'), 'layout');
             die;

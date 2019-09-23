@@ -11,52 +11,52 @@ class CommentManager extends Manager
 
     public function add(Comment $comment)
     {
-        $q = $this->dbConnect()->prepare('INSERT INTO comment(postid, author, content, date, status) VALUES (:postid, :author, :content, NOW(), :status)');
+        $sql = $this->dbConnect()->prepare('INSERT INTO comment(postid, author, content, date, status) VALUES (:postid, :author, :content, NOW(), :status)');
 
-        $q->bindValue(':postid', $comment->postId(), PDO::PARAM_INT);
-        $q->bindValue(':author', $comment->author(), PDO::PARAM_STR);
-        $q->bindValue(':content', $comment->content(), PDO::PARAM_STR);
-        $q->bindValue(':status', $comment->status(), PDO::PARAM_BOOL);
+        $sql->bindValue(':postid', $comment->postId(), PDO::PARAM_INT);
+        $sql->bindValue(':author', $comment->author(), PDO::PARAM_STR);
+        $sql->bindValue(':content', $comment->content(), PDO::PARAM_STR);
+        $sql->bindValue(':status', $comment->status(), PDO::PARAM_BOOL);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function delete(int $id)
+    public function delete(int $commentId)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM comment WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('DELETE FROM comment WHERE id = ' . $commentId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
     public function deleteCommentInPost($postId)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM comment WHERE postid = :postid');
-        $q->bindValue(':postid', $postId, PDO::PARAM_INT);
+        $sql = $this->dbConnect()->prepare('DELETE FROM comment WHERE postid = :postid');
+        $sql->bindValue(':postid', $postId, PDO::PARAM_INT);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function validate(int $id)
+    public function validate(int $commentId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 0 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE comment SET status = 0 WHERE id = ' . $commentId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function unvalidate(int $id)
+    public function unvalidate(int $commentId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE comment SET status = 1 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE comment SET status = 1 WHERE id = ' . $commentId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function get($id)
+    public function get($commentId)
     {
-        $id = (int) $id;
+        $commentId = (int) $commentId;
 
-        $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE id = ' . $id);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $sql = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE id = ' . $commentId);
+        $sql->execute(array($commentId));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         return new Comment($data);
     }
@@ -67,18 +67,18 @@ class CommentManager extends Manager
 
         switch ($status) {
             case "admin":
-                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment ORDER BY id desc');
+                $sql = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment ORDER BY id desc');
                 break;
             case "adminmanager":
-                $q = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE status = 0 ORDER BY id desc');
+                $sql = $this->dbConnect()->prepare('SELECT id, postid, author, content, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, status FROM comment WHERE status = 0 ORDER BY id desc');
                 break;
             case "user":
-                $q = $this->dbConnect()->prepare("SELECT id, postid, author, content, DATE_FORMAT(date, '%d/%m/%Y à %Hh%i') AS date, status FROM comment WHERE postid = $postId && status = 1 ORDER BY id desc");
+                $sql = $this->dbConnect()->prepare("SELECT id, postid, author, content, DATE_FORMAT(date, '%d/%m/%Y à %Hh%i') AS date, status FROM comment WHERE postid = $postId && status = 1 ORDER BY id desc");
                 break;
         }
 
-        $q->execute(array());
-        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+        $sql->execute(array());
+        while ($data = $sql->fetch(PDO::FETCH_ASSOC)) {
             $comment[] = new Comment($data);
         }
 
@@ -97,13 +97,13 @@ class CommentManager extends Manager
     }
 
     //Vérifie les données
-    public function validateData($content, $status, $postId, $author, $id = null)
+    public function validateData($content, $status, $postId, $author, $commentId = null)
     {
         $data['content'] = $content;
         $data['status'] = $status;
         $data['postId'] = $postId;
         $data['author'] = $author;
-        $data['id'] = $id;
+        $data['id'] = $commentId;
 
         return $data;
     }

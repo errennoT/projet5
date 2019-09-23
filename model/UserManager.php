@@ -4,65 +4,72 @@ namespace Projet5\Model;
 
 use \Projet5\Model\Manager;
 use \PDO;
+use Projet5\Service\SecuritySuperGlobal;
 
 class UserManager extends Manager
 {
+    private $superGlobal;
+
+    public function __construct()
+    {
+        $this->superGlobal = new SecuritySuperGlobal();
+    }
 
     public function add(User $user)
     {
-        $q = $this->dbConnect()->prepare('INSERT INTO user(login, password, email, status, admin) VALUES (:login, :password, :email, :status, :admin)');
+        $sql = $this->dbConnect()->prepare('INSERT INTO user(login, password, email, status, admin) VALUES (:login, :password, :email, :status, :admin)');
 
-        $q->bindValue(':login', htmlentities($user->login()), PDO::PARAM_STR);
-        $q->bindValue(':password', htmlentities($user->password()), PDO::PARAM_STR);
-        $q->bindValue(':email', htmlentities($user->email()), PDO::PARAM_STR);
-        $q->bindValue(':status', htmlentities($user->status()), PDO::PARAM_BOOL);
-        $q->bindValue(':admin', htmlentities($user->admin()), PDO::PARAM_BOOL);
+        $sql->bindValue(':login', htmlentities($user->login()), PDO::PARAM_STR);
+        $sql->bindValue(':password', htmlentities($user->password()), PDO::PARAM_STR);
+        $sql->bindValue(':email', htmlentities($user->email()), PDO::PARAM_STR);
+        $sql->bindValue(':status', htmlentities($user->status()), PDO::PARAM_BOOL);
+        $sql->bindValue(':admin', htmlentities($user->admin()), PDO::PARAM_BOOL);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function delete(int $id)
+    public function delete(int $userId)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM user WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('DELETE FROM user WHERE id = ' . $userId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function ban(int $id)
+    public function ban(int $userId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE user SET status = 0 WHERE id = ' . $userId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function unBan(int $id)
+    public function unBan(int $userId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE user SET status = 1 WHERE id = ' . $userId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function setAdmin(int $id)
+    public function setAdmin(int $userId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = ' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE user SET admin = 1 WHERE id = ' . $userId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function unsetAdmin(int $id)
+    public function unsetAdmin(int $userId)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET admin = 0 WHERE id =' . $id);
+        $sql = $this->dbConnect()->prepare('UPDATE user SET admin = 0 WHERE id =' . $userId);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function get($id)
+    public function get($userId)
     {
-        $id = (int) $id;
+        $userId = (int) $userId;
 
-        $q = $this->dbConnect()->prepare('SELECT id, login, password, email, status, admin FROM user WHERE id = ' . $id);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $sql = $this->dbConnect()->prepare('SELECT id, login, password, email, status, admin FROM user WHERE id = ' . $userId);
+        $sql->execute(array($userId));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         return new User($data);
     }
@@ -71,9 +78,9 @@ class UserManager extends Manager
     {
         $user = [];
 
-        $q = $this->dbConnect()->prepare('SELECT id, login, password, email, status, admin FROM user ORDER BY login');
-        $q->execute(array());
-        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+        $sql = $this->dbConnect()->prepare('SELECT id, login, password, email, status, admin FROM user ORDER BY login');
+        $sql->execute(array());
+        while ($data = $sql->fetch(PDO::FETCH_ASSOC)) {
             $user[] = new User($data);
         }
 
@@ -82,18 +89,18 @@ class UserManager extends Manager
 
     public function update(User $user)
     {
-        $q = $this->dbConnect()->prepare('UPDATE user SET login = :login, password = :password, email = :email WHERE id = :id');
+        $sql = $this->dbConnect()->prepare('UPDATE user SET login = :login, password = :password, email = :email WHERE id = :id');
 
-        $q->bindValue(':login', $user->login(), PDO::PARAM_STR);
-        $q->bindValue(':password', $user->password(), PDO::PARAM_STR);
-        $q->bindValue(':email', $user->email(), PDO::PARAM_STR);
-        $q->bindValue(':id', $user->id(), PDO::PARAM_INT);
+        $sql->bindValue(':login', $user->login(), PDO::PARAM_STR);
+        $sql->bindValue(':password', $user->password(), PDO::PARAM_STR);
+        $sql->bindValue(':email', $user->email(), PDO::PARAM_STR);
+        $sql->bindValue(':id', $user->id(), PDO::PARAM_INT);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
     //Teste si le password est assez long
-    public function validateData($password, $login, $email, $id = null, $status = null, $admin = null)
+    public function validateData($password, $login, $email, $userId = null, $status = null, $admin = null)
     {
         $data['password'] = $password;
         if (strlen($data['password']) < 10) {
@@ -105,16 +112,16 @@ class UserManager extends Manager
         $data['email'] = $email;
         $data['status'] = $status;
         $data['admin'] = $admin;
-        $data['id'] = $id;
+        $data['id'] = $userId;
 
         return $data;
     }
 
     public function authenticate($login, $password)
     {
-        $q = $this->dbConnect()->prepare("SELECT login, password, status, admin FROM user WHERE login='$login'");
-        $q->execute();
-        $data = $q->fetch();
+        $sql = $this->dbConnect()->prepare("SELECT login, password, status, admin FROM user WHERE login='$login'");
+        $sql->execute();
+        $data = $sql->fetch();
         $passwordDecrypt = password_verify($password, $data['password']);
         if ($login === $data['login'] && $passwordDecrypt === true && $data['status'] === "1" && $data['admin'] === "0") {
             return "user";
@@ -178,7 +185,7 @@ class UserManager extends Manager
     //Se déconnecter
     public function logout()
     {
-        if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
+        if ($this->superGlobal->undirectUseSP(isset($_SESSION['user'])) || $this->superGlobal->undirectUseSP(isset($_SESSION['admin']))) {
             unset($_SESSION['user']);
             unset($_SESSION['admin']);
         }
@@ -187,21 +194,21 @@ class UserManager extends Manager
     //Vérifie s'il n'y a pas de doublon dans la bdd
     public function isUnique($login, $email)
     {
-        $q = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE login='$login'");
-        $q2 = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE email='$email'");
-        $q->execute();
-        $data = $q->fetch();
+        $sql = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE login='$login'");
+        $sql2 = $this->dbConnect()->prepare("SELECT login, email FROM user WHERE email='$email'");
+        $sql->execute();
+        $data = $sql->fetch();
         if ($data['login'] === $login) {
-            $q2->execute();
-            $data = $q2->fetch();
+            $sql2->execute();
+            $data = $sql2->fetch();
             if ($data['email'] === $email) {
                 return "doubleLoginEmail";
             } else {
                 return "doubleLogin";
             }
         }
-        $q2->execute();
-        $data = $q2->fetch();
+        $sql2->execute();
+        $data = $sql2->fetch();
         if ($data['email'] === $email) {
             return "doubleEmail";
         }
