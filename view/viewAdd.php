@@ -15,19 +15,19 @@
 
 <?php if(isset($this->error['doubleLoginEmail'])): ?>
     <div class="container alert alert-danger">
-      <?= $this->error['doubleLoginEmail'] ?>
+      <?= htmlentities($this->error['doubleLoginEmail']) ?>
     </div>
   <?php endif ?>
   
 <?php if(isset($this->error['doubleLogin'])): ?>
     <div class="container alert alert-danger">
-      <?= $this->error['doubleLogin'] ?>
+      <?= htmlentities($this->error['doubleLogin']) ?>
     </div>
   <?php endif ?>
 
   <?php if(isset($this->error['doubleEmail'])): ?>
     <div class="container alert alert-danger">
-      <?= $this->error['doubleEmail'] ?>
+      <?= htmlentities($this->error['doubleEmail']) ?>
     </div>
   <?php endif ?>
 
@@ -48,18 +48,18 @@
   <form class="container" action="" method="POST">
     <div class="form-group">
       <label for="login">Pseudo</label>
-      <input type="text" class="form-control <?= isset($this->error['login']) ? 'is-invalid' : ''; ?>" name="login" placeholder="Pseudo" value="<?php if(isset($_POST['login'])) { echo htmlentities($_POST['login']); } else { echo ""; }?>">
+      <input type="text" class="form-control <?= isset($this->error['login']) ? 'is-invalid' : ''; ?>" name="login" placeholder="Pseudo" value="<?php if(filter_input(INPUT_POST, 'login')) { echo filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS); } else { echo ""; }?>">
       <?php if (isset($this->error['login'])):?>
             <div class="invalid-feedback">
-                <?= $this->error['login'] ;?>
+                <?= htmlentities($this->error['login']) ;?>
             </div>
       <?php endif?>
     </div>
     <div class="form-group">
       <label for="email">Adresse mail</label>
-      <input type="text" class="form-control <?= isset($this->error['email']) ? 'is-invalid' : ''?>" name="email"  placeholder="E-mail" value="<?php if(isset($_POST['email'])) { echo htmlentities($_POST['email']); } else { echo ""; }?>">
+      <input type="text" class="form-control <?= isset($this->error['email']) ? 'is-invalid' : ''?>" name="email"  placeholder="E-mail" value="<?php if(filter_input(INPUT_POST, 'email')) { echo filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS); } else { echo ""; }?>">
       <div class="invalid-feedback">
-        <?= $this->error['email'] ;?>
+        <?= htmlentities($this->error['email']) ;?>
       </div>
     </div>
     <div class="form-group">
@@ -67,7 +67,7 @@
       <input type="password" class="form-control <?= isset($this->error['password']) ? 'is-invalid' : ''?>" name="password" placeholder="Mot de passe">
       <?php if (isset($this->error['password'])):?>
             <div class="invalid-feedback">
-                <?= $this->error['password'] ;?>
+                <?= htmlentities($this->error['password']) ;?>
             </div>
       <?php endif?>
     </div>

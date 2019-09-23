@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?= $title ?></title>
+  <title><?= htmlentities($title) ?></title>
 
   <!-- Custom fonts for this theme -->
   <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 
   <!-- Theme CSS -->
   <?php $file = 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'freelancer.min.css'; ?>
-  <link href="<?= $file ?>" rel="stylesheet">
+  <link href="<?= htmlentities($file) ?>" rel="stylesheet">
 
 
 </head>
@@ -47,9 +47,9 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?p=listpost">Blog</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <?php if (!empty($_SESSION['user'])) : ?>
+            <?php if ($this->superGlobal->undirectUseSP(!empty($_SESSION['user']))) : ?>
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=logout">Se déconnecter</a>
-            <?php elseif (!empty($_SESSION['admin'])) : ?>
+            <?php elseif ($this->superGlobal->undirectUseSP(!empty($_SESSION['admin']))) : ?>
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=admin">Administration</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
@@ -66,14 +66,14 @@
   <!-- Masthead -->
   <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
-      <?= $logo ?>
-      <h1 class="masthead-heading text-uppercase mb-0"><?= $header ?></h1>
+      <?=htmlspecialchars($logo, ENT_QUOTES, 'UTF-8', false) ?>
+      <h1 class="masthead-heading text-uppercase mb-0"><?= htmlspecialchars($header, ENT_QUOTES, 'UTF-8', false) ?></h1>
     </div>
   </header>
 
   <!-- Page blog header -->
   <section id="list" class="page-section">
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"><?= $subheader ?></h2>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"><?= htmlspecialchars($subheader, ENT_QUOTES, 'UTF-8', false) ?></h2>
 
     <div class="divider-custom">
       <div class="divider-custom-line"></div>
@@ -86,7 +86,7 @@
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col-md-auto">
-          <?= $nav ?>
+          <?= html_entity_decode($nav) ?>
           <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?u=adminuser">Utilisateurs</a>
           <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?p=adminpost">Articles</a>
           <a style="margin-right: 10px;" class="btn btn-primary" href="index.php?c=admincommentfilter">Commentaires</a>
@@ -99,7 +99,7 @@
 
     <!-- Content -->
     <div>
-      <?= $content ?>
+      <?= html_entity_decode($content) ?>
     </div>
 
   </section>

@@ -59,8 +59,8 @@ class Router
 	public function routerRequest()
 	{ //Actions concernant les utilisateurs
 		try {
-			if (isset($_GET['u'])) {
-				switch ($_GET['u']) {
+			if (filter_input(INPUT_GET, 'u')) {
+				switch (filter_input(INPUT_GET, 'u')) {
 					case "add":
 						$this->ctrlRegister->add();
 						break;
@@ -80,28 +80,28 @@ class Router
 						$this->ctrlAdminUser->listUser();
 						break;
 					case "ban":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->ban($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->ban((int) $userId);
 						break;
 					case "unban":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->unBan($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->unBan((int) $userId);
 						break;
 					case "delete":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->delete($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->delete((int) $userId);
 						break;
 					case "newadmin":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->setAdmin($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->setAdmin((int) $userId);
 						break;
 					case "deleteadmin":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->unSetAdmin($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->unSetAdmin((int) $userId);
 						break;
 					case "edituser":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminUser->editUser($id);
+						$userId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminUser->editUser((int) $userId);
 						break;
 					default:
 						throw new Exception("Action non valide");
@@ -111,36 +111,36 @@ class Router
 
 
 			//Actions concernant les posts
-			if (isset($_GET['p'])) {
-				switch ($_GET['p']) {
+			if (filter_input(INPUT_GET, 'p')) {
+				switch (filter_input(INPUT_GET, 'p')) {
 					case "listpost":
 						$this->ctrlPost->listPost();
 						break;
 					case "post":
-						$id = intval($this->getParam($_GET, 'id'));
-						$this->ctrlPost->post($id);
+						$postId = $this->getParam($_GET, 'id');
+						$this->ctrlPost->post((int) $postId);
 						break;
 					case "adminpost":
 						$this->ctrlAdminPost->listPost();
 						break;
 					case "delete":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminPost->delete($id);
+						$postId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminPost->delete((int) $postId);
 						break;
 					case "addpost":
 						$this->ctrlAdminPost->addPost();
 						break;
 					case "unpublish":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminPost->draft($id);
+						$postId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminPost->draft((int) $postId);
 						break;
 					case "publish":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminPost->published($id);
+						$postId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminPost->published((int) $postId);
 						break;
 					case 'editpost':
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminPost->editPost($id);
+						$postId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminPost->editPost((int) $postId);
 						break;
 					default:
 						throw new Exception("Action non valide");
@@ -148,11 +148,11 @@ class Router
 				}
 			}
 			//Actions concernant les commentaires
-			if (isset($_GET['c'])) {
-				switch ($_GET['c']) {
+			if (filter_input(INPUT_GET, 'c')) {
+				switch (filter_input(INPUT_GET, 'c')) {
 					case "addcomment":
-						$id = intval($this->getParam($_GET, 'id'));
-						$this->ctrlComment->addComment($id);
+						$commentId = $this->getParam($_GET, 'id');
+						$this->ctrlComment->addComment((int) $commentId);
 						break;
 					case "admincomment":
 						$this->ctrlAdminComment->listCommentValidate();
@@ -161,20 +161,20 @@ class Router
 						$this->ctrlAdminComment->listCommentUnvalidate();
 						break;
 					case "delete":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminComment->delete($id);
+						$commentId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminComment->delete((int) $commentId);
 						break;
 					case "unvalidate":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminComment->unvalidate($id);
+						$commentId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminComment->unvalidate((int) $commentId);
 						break;
 					case "validate":
-						$id = intval($this->getParam($_POST, 'id'));
-						$this->ctrlAdminComment->validate($id);
+						$commentId = $this->getParam($_POST, 'id');
+						$this->ctrlAdminComment->validate((int) $commentId);
 						break;
 					case "comment":
-						$id = intval($this->getParam($_GET, 'id'));
-						$this->ctrlAdminComment->comment($id);
+						$commentId = $this->getParam($_GET, 'id');
+						$this->ctrlAdminComment->comment((int) $commentId);
 						break;
 					default:
 						throw new Exception("Action non valide");
@@ -183,18 +183,18 @@ class Router
 			}
 
 			//Actions concernant les messages
-			if (isset($_GET['m'])) {
-				switch ($_GET['m']) {
+			if (filter_input(INPUT_GET, 'm')) {
+				switch (filter_input(INPUT_GET, 'm')) {
 					case "listmessage":
 						$this->ctrlAdminMessage->listMessage();
 						break;
 					case "message":
-						$id = intval($this->getParam($_GET, 'id'));
-						$this->ctrlAdminMessage->message($id);
+						$messageId = $this->getParam($_GET, 'id');
+						$this->ctrlAdminMessage->message((int) $messageId);
 						break;
 					case "answermessage":
-						$id = intval($this->getParam($_GET, 'id'));
-						$this->ctrlAdminMessage->answerMessage($id);
+						$messageId = $this->getParam($_GET, 'id');
+						$this->ctrlAdminMessage->answerMessage((int) $messageId);
 						break;
 					case "addmessage":
 						$this->ctrlMessage->addMessage();
@@ -233,8 +233,7 @@ class Router
 	{
 		if (isset($array[$name])) {
 			return $array[$name];
-		} else {
-			throw new Exception("Paramètre de lien invalide");
 		}
+			throw new Exception("Paramètre de lien invalide");
 	}
 }

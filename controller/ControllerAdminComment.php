@@ -8,12 +8,16 @@ use \Projet5\Model\AreaAdmin;
 use Projet5\Service\ViewManager;
 
 use Projet5\Service\SecurityCsrf;
+use Projet5\Service\SecuritySuperGlobal;
 use Volnix\CSRF\CSRF;
 
 class ControllerAdminComment
 {
     private $commentManager;
     private $areaAdmin;
+    private $renderview;
+    private $csrf;
+    private $superGlobal;
 
     public function __construct()
     {
@@ -22,6 +26,7 @@ class ControllerAdminComment
 
         $this->areaAdmin = new AreaAdmin();
         $this->csrf = new SecurityCsrf();
+        $this->superGlobal = new SecuritySuperGlobal();
     }
 
     //Liste des commentaires en attentes de validations
@@ -43,48 +48,48 @@ class ControllerAdminComment
     }
 
     //Supprimer un commentaire
-    public function delete($id)
+    public function delete($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
 
-        $this->commentManager->delete($id);
+        $this->commentManager->delete($commentId);
 
-        header('Location: ' . $_SERVER['HTTP_REFERER'] . '#list');
-        exit;
+        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']) . '#list');
+        die;
     }
 
     //Status validé
-    public function validate($id)
+    public function validate($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
 
 
-        $this->commentManager->validate($id);
+        $this->commentManager->validate($commentId);
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']. '#list');
-        exit;
+        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']). '#list');
+        die;
     }
 
     //Status en attente
-    public function unvalidate($id)
+    public function unvalidate($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
 
-        $this->commentManager->unvalidate($id);
+        $this->commentManager->unvalidate($commentId);
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']. '#list');
-        exit;
+        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']) . '#list');
+        die;
     }
 
     //Afficher un commentaire
-    public function comment($id)
+    public function comment($commentId)
     {
         $this->areaAdmin->verifyAdmin();
 
-        $comment = $this->commentManager->get($id);
+        $comment = $this->commentManager->get($commentId);
 
         $this->renderview->generateView(array('name' => "Comment", 'function' => $comment, 'nameFunction' => 'comment'), 'layoutPageAdmin');
     }

@@ -8,13 +8,16 @@ use Projet5\Model\AreaAdmin;
 
 use Projet5\Service\ViewManager;
 use Projet5\Service\SecurityCsrf;
-
+use Projet5\Service\SecuritySuperGlobal;
 use Volnix\CSRF\CSRF;
 
 class ControllerAdminUser
 {
     private $_userManager;
+    private $renderview;
     private $areaAdmin;
+    private $csrf;
+    private $post;
 
     public function __construct()
     {
@@ -22,6 +25,7 @@ class ControllerAdminUser
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin();
         $this->csrf = new SecurityCsrf();
+        $this->post = new SecuritySuperGlobal();
     }
 
     //Liste des utilisateurs
@@ -31,84 +35,83 @@ class ControllerAdminUser
 
         $users = $this->_userManager->getList();
 
-        $this->renderview->generateView(array('name' => "AdminUser",'function' => $users,'nameFunction' => 'users'), 'layoutPageAdmin');
+        $this->renderview->generateView(array('name' => "AdminUser", 'function' => $users, 'nameFunction' => 'users'), 'layoutPageAdmin');
     }
 
     //Supprimer un utilisateur
-    public function delete($id)
+    public function delete($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
 
-        $this->_userManager->delete($id);
+        $this->_userManager->delete($userId);
         header('Location: index.php?u=adminuser#list');
     }
 
     //Bannir un utilisateur
-    public function ban($id)
+    public function ban($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
 
-        $this->_userManager->ban($id);
+        $this->_userManager->ban($userId);
         header('Location: index.php?u=adminuser#list');
     }
 
     //Débannir un utilisateur
-    public function unBan($id)
+    public function unBan($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
 
-        $this->_userManager->unBan($id);
+        $this->_userManager->unBan($userId);
         header('Location: index.php?u=adminuser#list');
     }
 
     //Définir un nouvel admin
-    public function setAdmin($id)
+    public function setAdmin($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
 
-        $this->_userManager->setAdmin($id);
+        $this->_userManager->setAdmin($userId);
         header('Location: index.php?u=adminuser#list');
     }
 
     //Supprimer un administrateur
-    public function unsetAdmin($id)
+    public function unsetAdmin($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($_POST));
+        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
 
-        $this->_userManager->unsetAdmin($id);
+        $this->_userManager->unsetAdmin($userId);
         header('Location: index.php?u=adminuser#list');
     }
 
     //Modifier un utilisateur
-    public function editUser($id)
+    public function editUser($userId)
     {
         $this->areaAdmin->verifyAdmin();
 
-        $user = $this->_userManager->get($id);
+        $user = $this->_userManager->get($userId);
 
-        if (!empty($_POST) && CSRF::validate($_POST) ) {
-            $error = $this->_userManager->getError(htmlentities($_POST['login']), htmlentities($_POST['password']), htmlentities($_POST['email']));
+        if (!empty($this->post->undirectUseSP($_POST)) && CSRF::validate($this->post->undirectUseSP($_POST))) {
+            $error = $this->_userManager->getError(filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             if (empty($error)) {
-                $data = $this->_userManager->validateData(htmlentities($_POST['password']), htmlentities($_POST['login']), htmlentities($_POST['email']), htmlentities($_POST['id']));
+                $data = $this->_userManager->validateData(filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['id'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
                 $user = new User($data);
                 $this->_userManager->update($user);
                 header('Location: index.php?u=adminuser');
-            } else {
-                $user = $this->_userManager->get($id);
-
-                $this->renderview->generateView(array(
-                    'name' => "EditUser",
-                    'error' => $error,
-                    'function' => $user,
-                    'nameFunction' => 'user'
-                ), 'layoutPageAdmin');
             }
+            $user = $this->_userManager->get($userId);
+
+            $this->renderview->generateView(array(
+                'name' => "EditUser",
+                'error' => $error,
+                'function' => $user,
+                'nameFunction' => 'user'
+            ), 'layoutPageAdmin');
         }
-        $this->renderview->generateView(array('name' => "EditUser",'function' => $user,'nameFunction' => 'user'), 'layoutPageAdmin');
+        $this->renderview->generateView(array('name' => "EditUser", 'function' => $user, 'nameFunction' => 'user'), 'layoutPageAdmin');
     }
 }

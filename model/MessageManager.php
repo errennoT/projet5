@@ -11,31 +11,31 @@ class MessageManager extends Manager
 
     public function add(Message $message)
     {
-        $q = $this->dbConnect()->prepare('INSERT INTO message(date, surname, name, content, email) VALUES (NOW(), :surname, :name, :content, :email)');
+        $sql = $this->dbConnect()->prepare('INSERT INTO message(date, surname, name, content, email) VALUES (NOW(), :surname, :name, :content, :email)');
 
-        $q->bindValue(':surname', $message->surname(), PDO::PARAM_STR);
-        $q->bindValue(':name', $message->name(), PDO::PARAM_STR);
-        $q->bindValue(':content', $message->content(), PDO::PARAM_STR);
-        $q->bindValue(':email', $message->email(), PDO::PARAM_STR);
+        $sql->bindValue(':surname', $message->surname(), PDO::PARAM_STR);
+        $sql->bindValue(':name', $message->name(), PDO::PARAM_STR);
+        $sql->bindValue(':content', $message->content(), PDO::PARAM_STR);
+        $sql->bindValue(':email', $message->email(), PDO::PARAM_STR);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
     public function delete(Message $message)
     {
-        $q = $this->dbConnect()->prepare('DELETE FROM message WHERE id = :id');
-        $q->bindValue(':id', $message->id(), PDO::PARAM_INT);
+        $sql = $this->dbConnect()->prepare('DELETE FROM message WHERE id = :id');
+        $sql->bindValue(':id', $message->id(), PDO::PARAM_INT);
 
-        $this->executeSql($q);
+        $this->executeSql($sql);
     }
 
-    public function get($id)
+    public function get($messageId)
     {
-        $id = (int) $id;
+        $messageId = (int) $messageId;
 
-        $q = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message WHERE id = ' . $id);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $sql = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message WHERE id = ' . $messageId);
+        $sql->execute(array($messageId));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         return new Message($data);
     }
@@ -45,9 +45,9 @@ class MessageManager extends Manager
     {
         $message = [];
 
-        $q = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message ORDER BY id desc');
-        $q->execute(array());
-        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+        $sql = $this->dbConnect()->prepare('SELECT id, DATE_FORMAT(date, "%d/%m/%Y à %Hh%i") AS date, surname, name, content, email FROM message ORDER BY id desc');
+        $sql->execute(array());
+        while ($data = $sql->fetch(PDO::FETCH_ASSOC)) {
             $message[] = new Message($data);
         }
 

@@ -29,6 +29,7 @@ return array(
     'Projet5\\Model\\UserManager' => $baseDir . '/model/UserManager.php',
     'Projet5\\Service\\Router' => $baseDir . '/service/Router.php',
     'Projet5\\Service\\SecurityCsrf' => $baseDir . '/service/SecurityCsrf.php',
+    'Projet5\\Service\\SecuritySuperGlobal' => $baseDir . '/service/SecuritySuperGlobal.php',
     'Projet5\\Service\\ViewManager' => $baseDir . '/service/ViewManager.php',
     'Projet5\\View\\View' => $baseDir . '/view/View.php',
     'Volnix\\CSRF\\CSRF' => $vendorDir . '/volnix/csrf/src/CSRF.php',

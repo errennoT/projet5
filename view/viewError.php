@@ -13,12 +13,11 @@
     </div>
 
     <div class="container alert alert-danger">
-        <?php if (isset($msgError)) {
-            echo "Erreur: $msgError";
-        } else {
-            echo "Erreur le lien est invalide";
-        }
-        ?>
+        <?php if (isset($msgError)) : ?>
+            Erreur: <?= htmlentities($msgError) ?>
+        <?php else : ?>
+            Erreur le lien est invalide
+        <?php endif ?>
     </div>
     <div class="container">
         <input class="btn btn-primary" type="button" value="Retour" onclick="history.go(-1)">

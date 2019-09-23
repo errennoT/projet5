@@ -33,9 +33,9 @@ class ControllerPost
     }
 
     //Afficher un article
-    public function post($id, $error = null)
+    public function post($postId, $error = null)
     {
-        $post = $this->postManager->get($id);
+        $post = $this->postManager->get($postId);
 
         //Filtre la view si le post est en "brouillon"
         if ($post->status() === 0) {
@@ -43,7 +43,7 @@ class ControllerPost
         }
 
         $this->commentManager = new CommentManager();
-        $comments = $this->commentManager->getList("user", $id);
+        $comments = $this->commentManager->getList("user", $postId);
 
         $view = new View("Post", $error);
         $view->generate(array('post' => $post, 'comments' => $comments), 'layout');

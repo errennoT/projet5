@@ -17,9 +17,8 @@ class SecurityCsrf
     {
         if ($token) {
             return true;
-        } else {
-            $this->renderview->generateView(array('name' => "Error", 'function' => "Cette action est impossible", 'nameFunction' => 'msgError'), 'layout');
-            die;
         }
+        $this->renderview->generateView(array('name' => "Error", 'function' => "Cette action est impossible", 'nameFunction' => 'msgError'), 'layout');
+        die;
     }
 }

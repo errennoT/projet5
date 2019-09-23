@@ -52,6 +52,7 @@ class ComposerStaticInit4cf23fc741133070bdf40697e482fdac
         'Projet5\\Model\\UserManager' => __DIR__ . '/../..' . '/model/UserManager.php',
         'Projet5\\Service\\Router' => __DIR__ . '/../..' . '/service/Router.php',
         'Projet5\\Service\\SecurityCsrf' => __DIR__ . '/../..' . '/service/SecurityCsrf.php',
+        'Projet5\\Service\\SecuritySuperGlobal' => __DIR__ . '/../..' . '/service/SecuritySuperGlobal.php',
         'Projet5\\Service\\ViewManager' => __DIR__ . '/../..' . '/service/ViewManager.php',
         'Projet5\\View\\View' => __DIR__ . '/../..' . '/view/View.php',
         'Volnix\\CSRF\\CSRF' => __DIR__ . '/..' . '/volnix/csrf/src/CSRF.php',

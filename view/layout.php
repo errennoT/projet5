@@ -3,7 +3,7 @@
 
 <head>
 
-  <meta charset="utf-8">
+  <meta charset="utf-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -47,9 +47,9 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?p=listpost">Blog</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <?php if (!empty($_SESSION['user'])) : ?>
+            <?php if ($this->superGlobal->undirectUseSP(!empty($_SESSION['user']))) : ?>
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=logout">Se déconnecter</a>
-            <?php elseif (!empty($_SESSION['admin'])) : ?>
+            <?php elseif ($this->superGlobal->undirectUseSP(!empty($_SESSION['admin']))) : ?>
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php?u=admin">Administration</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
