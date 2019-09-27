@@ -146,10 +146,13 @@ class UserManager extends Manager
             $error['login'] = 'Votre pseudo est trop long';
         }
         if (strlen($email) < 10) {
-            $error['email'] = 'Votre adresse email est incorrecte';
+            $error['email'] = 'Votre adresse email est trop courte';
         }
         if (strlen($email) > 100) {
             $error['email'] = 'Votre email est trop long';
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $error['email'] = 'Votre adresse email est incorrecte ';
         }
         if (strlen($password) < 10) {
             $error['password'] = 'Votre mot de passe est trop court';
@@ -185,7 +188,7 @@ class UserManager extends Manager
     //Se déconnecter
     public function logout()
     {
-        if ($this->superGlobal->undirectUseSP(isset($_SESSION['user'])) || $this->superGlobal->undirectUseSP(isset($_SESSION['admin']))) {
+        if ($this->superGlobal->undirectUseSession('user') || $this->superGlobal->undirectUseSession('admin')) {
             unset($_SESSION['user']);
             unset($_SESSION['admin']);
         }

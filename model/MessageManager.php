@@ -70,6 +70,9 @@ class MessageManager extends Manager
                 if (strlen($email) < 10) {
                     $error['email'] = 'Votre adresse email est incorrecte';
                 }
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error['email'] = 'Votre adresse email est incorrecte ';
+                }
                 if (strlen($content) < 5) {
                     $error['content'] = 'Votre message est trop court';
                 }

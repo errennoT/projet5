@@ -174,7 +174,7 @@ HTML
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Adresse E-mail</label>
-                <input type="text" class="form-control" name="email" placeholder="Adresse E-mail" required>
+                <input type="email" class="form-control" name="email" placeholder="Adresse E-mail" required>
               </div>
             </div>
             <div class="control-group">

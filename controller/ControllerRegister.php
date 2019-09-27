@@ -23,21 +23,22 @@ class ControllerRegister
     //Créer un compte utilisateur
     public function add()
     {
-        if (!empty($this->superGlobal->undirectUseSP($_POST))) {
-            $error = $this->_userManager->getError(filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if (!empty($this->superGlobal->undirectUsePost())) {
+            $error = $this->_userManager->getError($this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('password'), $this->superGlobal->undirectUsePost('email'));
             if (empty($error)) {
-                $data = $this->_userManager->validateData(filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), null, 1, 0);
+                $data = $this->_userManager->validateData($this->superGlobal->undirectUsePost('password'), $this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('email'), null, 1, 0);
                 $user = new User($data);
                 $error = 'succes';
                 $this->_userManager->add($user);
-                $this->superGlobal->undirectUseSP($_POST['login'] = "");
-                $this->superGlobal->undirectUseSP($_POST['email'] = "");
+                $this->superGlobal->undirectUsePost('login', "");
+                $this->superGlobal->undirectUsePost('email', "");
 
                 $this->renderview->generateView(array('name' => "Add", 'error' => $error), 'layout');
             }
             $this->renderview->generateView(array('name' => "Add", 'error' => $error), 'layout');
-        }
+        } else {
 
-        $this->renderview->generateView(array('name' => "Add"), 'layout');
+            $this->renderview->generateView(array('name' => "Add"), 'layout');
+        }
     }
 }

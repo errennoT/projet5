@@ -44,7 +44,7 @@
                             </form>
                         <?php endif ?></td>
 
-                        <form action="index.php?u=delete" method="POST">
+                        <form action="index.php?u=delete" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer l\'utilisateur ?')">
                             <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                             <input type="hidden" name="id" value="<?= htmlentities($user->id()) ?>" />
                             <td><button class="btn btn-danger" type="submit">Supprimer</button></td>
