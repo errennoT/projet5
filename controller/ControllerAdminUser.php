@@ -17,7 +17,7 @@ class ControllerAdminUser
     private $renderview;
     private $areaAdmin;
     private $csrf;
-    private $post;
+    private $superGlobal;
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class ControllerAdminUser
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin();
         $this->csrf = new SecurityCsrf();
-        $this->post = new SecuritySuperGlobal();
+        $this->superGlobal = new SecuritySuperGlobal();
     }
 
     //Liste des utilisateurs
@@ -42,7 +42,7 @@ class ControllerAdminUser
     public function delete($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->_userManager->delete($userId);
         header('Location: index.php?u=adminuser#list');
@@ -52,7 +52,7 @@ class ControllerAdminUser
     public function ban($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->_userManager->ban($userId);
         header('Location: index.php?u=adminuser#list');
@@ -62,7 +62,7 @@ class ControllerAdminUser
     public function unBan($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->_userManager->unBan($userId);
         header('Location: index.php?u=adminuser#list');
@@ -72,7 +72,7 @@ class ControllerAdminUser
     public function setAdmin($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->_userManager->setAdmin($userId);
         header('Location: index.php?u=adminuser#list');
@@ -82,7 +82,7 @@ class ControllerAdminUser
     public function unsetAdmin($userId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->_userManager->unsetAdmin($userId);
         header('Location: index.php?u=adminuser#list');
@@ -95,10 +95,10 @@ class ControllerAdminUser
 
         $user = $this->_userManager->get($userId);
 
-        if (!empty($this->post->undirectUseSP($_POST)) && CSRF::validate($this->post->undirectUseSP($_POST))) {
-            $error = $this->_userManager->getError(filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if (!empty($this->superGlobal->undirectUsePost()) && CSRF::validate($this->superGlobal->undirectUsePost())) {
+            $error = $this->_userManager->getError($this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('password'), $this->superGlobal->undirectUsePost('email'));
             if (empty($error)) {
-                $data = $this->_userManager->validateData(filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['id'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $data = $this->_userManager->validateData($this->superGlobal->undirectUsePost('password'), $this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('email'), $this->superGlobal->undirectUsePost('id'));
                 $user = new User($data);
                 $this->_userManager->update($user);
                 header('Location: index.php?u=adminuser');

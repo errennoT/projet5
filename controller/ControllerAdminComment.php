@@ -51,11 +51,11 @@ class ControllerAdminComment
     public function delete($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->commentManager->delete($commentId);
 
-        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']) . '#list');
+        header('Location: ' . $this->superGlobal->undirectUseServer('HTTP_REFERER') . '#list');
         die;
     }
 
@@ -63,12 +63,12 @@ class ControllerAdminComment
     public function validate($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
 
         $this->commentManager->validate($commentId);
 
-        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']). '#list');
+        header('Location: ' . $this->superGlobal->undirectUseServer('HTTP_REFERER') . '#list');
         die;
     }
 
@@ -76,11 +76,11 @@ class ControllerAdminComment
     public function unvalidate($commentId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->commentManager->unvalidate($commentId);
 
-        header('Location: ' . filter_var($_SERVER['HTTP_REFERER']) . '#list');
+        header('Location: ' . $this->superGlobal->undirectUseServer('HTTP_REFERER') . '#list');
         die;
     }
 

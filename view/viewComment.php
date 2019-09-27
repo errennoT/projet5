@@ -1,15 +1,7 @@
 <?php $this->header = "Commentaire" ?>
+<?php $this->subheader = 'Commentaire de ' . htmlspecialchars($comment->author(), ENT_QUOTES, 'UTF-8', false) ?>
 
-<section class="page-section">
-  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Commentaire de <?= htmlspecialchars($comment->author(), ENT_QUOTES, 'UTF-8', false) ?></h2>
-
-  <div class="divider-custom">
-    <div class="divider-custom-line"></div>
-    <div class="divider-custom-icon">
-      <i class="fas fa-star"></i>
-    </div>
-    <div class="divider-custom-line"></div>
-  </div>
+<br>
 
   <!-- View Article -->
   <div class="container">

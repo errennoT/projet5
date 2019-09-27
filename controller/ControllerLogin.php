@@ -23,15 +23,15 @@ class ControllerLogin
     //Se connecter
     public function login()
     {
-        if (!empty($this->superGlobal->undirectUseSP($_POST))) {
-            $authenticate = $this->_userManager->authenticate(filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if (!empty($this->superGlobal->undirectUsePost())) {
+            $authenticate = $this->_userManager->authenticate($this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('password'));
             switch ($authenticate) {
                 case "user":
-                    $this->superGlobal->undirectUseSP($_SESSION['user'] = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                    $this->superGlobal->undirectUseSession('user', $this->superGlobal->undirectUsePost('login'));
                     header('Location: index.php');
                     break;
                 case "admin":
-                    $this->superGlobal->undirectUseSP($_SESSION['admin'] = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                    $this->superGlobal->undirectUseSession('admin', $this->superGlobal->undirectUsePost('login'));
                     header('Location: index.php');
                     break;
                 default:
@@ -39,9 +39,10 @@ class ControllerLogin
                     $this->renderview->generateView(array('name' => "Login", 'error' => $error), 'layout');
                     break;
             }
-        }
+        } else {
 
-        $this->renderview->generateView(array('name' => "Login"), 'layout');
+            $this->renderview->generateView(array('name' => "Login"), 'layout');
+        }
     }
 
     //Se déconnecter

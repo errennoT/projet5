@@ -16,7 +16,7 @@ class AreaAdmin
     //Vérifie si c'est un administrateur
     public function verifyAdmin()
     {
-        if ($this->superGlobal->undirectUseSP($_SESSION['admin'] === null)) {
+        if (empty($this->superGlobal->undirectUseSession('admin'))) {
             header('Location: index.php?u=accesdenied');
             die;
         }

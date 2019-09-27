@@ -57,7 +57,7 @@
     <?php endforeach; ?>
   </div>
 
-  <?php if ($this->superGlobal->undirectUseSP(isset($_SESSION['user'])) || $this->superGlobal->undirectUseSP(isset($_SESSION['admin']))) : ?>
+  <?php if ($this->superGlobal->undirectUseSession('user') || $this->superGlobal->undirectUseSession('admin')) : ?>
     <form class="container" action="index.php?c=addcomment&id=<?= htmlentities($post->id()) ?>" method="POST">
       <div class="form-group">
         <label for="content">Commentaire</label>

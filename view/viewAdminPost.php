@@ -47,7 +47,7 @@ HTML
                         </form>
                     <?php endif ?>
 
-                    <form class="container" action="index.php?p=delete" method="POST">
+                    <form class="container" action="index.php?p=delete" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer l\'article ?')">
                         <input type="hidden" name="<?= \Volnix\CSRF\CSRF::TOKEN_NAME ?>" value="<?= \Volnix\CSRF\CSRF::getToken() ?>" />
                         <input type="hidden" name="id" value="<?= $post->id() ?>" />
                         <td><button class="btn btn-danger" type="submit">Supprimer</button></td>

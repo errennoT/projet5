@@ -27,19 +27,19 @@ class ControllerComment
     //Ajouter un commentaire en tant qu'administrateur
     public function addComment($postId)
     {
-        if (!empty($this->superGlobal->undirectUseSP($_POST))) {
-            $error = $this->commentManager->errorComment(filter_var($_POST['contentComment'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if (!empty($this->superGlobal->undirectUsePost())) {
+            $error = $this->commentManager->errorComment($this->superGlobal->undirectUsePost('contentComment'));
 
             if (empty($error)) {
                 if (isset($_SESSION['user'])) {
-                    $data = $this->commentManager->validateData(filter_var($_POST['contentComment'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), 0, $postId, $this->superGlobal->undirectUseSP($_SESSION['user']));
+                    $data = $this->commentManager->validateData($this->superGlobal->undirectUsePost('contentComment'), 0, $postId, $this->superGlobal->undirectUseSession('user'));
 
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);
 
                     $this->renderview->generateView(array('name' => "MessageComment"), 'layout');
                 } elseif (isset($_SESSION['admin'])) {
-                    $data = $this->commentManager->validateData(filter_var($_POST['contentComment'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), 1, $postId, $this->superGlobal->undirectUseSP($_SESSION['admin']));
+                    $data = $this->commentManager->validateData($this->superGlobal->undirectUsePost('contentComment'), 1, $postId, $this->superGlobal->undirectUseSession('admin'));
 
                     $comment = new Comment($data);
                     $this->commentManager->add($comment);

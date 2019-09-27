@@ -14,14 +14,14 @@ class ControllerAdminMessage
     private $messageManager;
     private $renderview;
     private $areaAdmin;
-    private $post;
+    private $superGlobal;
 
     public function __construct()
     {
         $this->messageManager = new MessageManager();
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin();
-        $this->post = new SecuritySuperGlobal();
+        $this->superGlobal = new SecuritySuperGlobal();
     }
 
     //Afficher tous les messages
@@ -50,11 +50,11 @@ class ControllerAdminMessage
 
         $message = $this->messageManager->get($messageId);
 
-        if (!empty($this->post->undirectUseSP($_POST)) && CSRF::validate($this->post->undirectUseSP($_POST))) {
-            $error = $this->messageManager->errorMessage(filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", "", "", "", "answer");
+        if (!empty($this->superGlobal->undirectUsePost()) && CSRF::validate($this->superGlobal->undirectUsePost())) {
+            $error = $this->messageManager->errorMessage($this->superGlobal->undirectUsePost('content'), null, null, null, null, "answer");
 
             if (empty($error)) {
-                $data = $this->messageManager->validateData(filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", "", filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $data = $this->messageManager->validateData($this->superGlobal->undirectUsePost('content'), null, null, $this->superGlobal->undirectUsePost('email'));
                 mail($data['email'], $data['subject'], $data['content']);
                 $this->messageManager->delete($message);
 

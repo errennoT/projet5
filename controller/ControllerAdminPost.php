@@ -18,7 +18,7 @@ class ControllerAdminPost
     private $areaAdmin;
     private $commentManager;
     private $csrf;
-    private $post;
+    private $superGlobal;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ class ControllerAdminPost
         $this->renderview = new ViewManager();
         $this->areaAdmin = new AreaAdmin();
         $this->csrf = new SecurityCsrf();
-        $this->post = new SecuritySuperGlobal();
+        $this->superGlobal = new SecuritySuperGlobal();
     }
 
     // Afficher tous les articles
@@ -53,26 +53,27 @@ class ControllerAdminPost
     {
         $this->areaAdmin->verifyAdmin();
 
-        if (!empty($this->post->undirectUseSP($_POST)) && CSRF::validate($this->post->undirectUseSP($_POST))) {
-            $error = $this->postManager->errorPost(filter_var($_POST['title'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['chapo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), "add");
+        if (!empty($this->superGlobal->undirectUsePost()) && CSRF::validate($this->superGlobal->undirectUsePost())) {
+            $error = $this->postManager->errorPost($this->superGlobal->undirectUsePost('title'), $this->superGlobal->undirectUsePost('content'), $this->superGlobal->undirectUsePost('chapo'), "add");
             if (empty($error)) {
-                $data = $this->postManager->validateData(filter_var($_POST['title'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), isset($_POST['publish']) ? true : false, filter_var($_POST['chapo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_SESSION['admin'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $data = $this->postManager->validateData($this->superGlobal->undirectUsePost('title'), $this->superGlobal->undirectUsePost('content'), isset($_POST['publish']) ? true : false, $this->superGlobal->undirectUsePost('chapo'), $this->superGlobal->undirectUseSession('admin'));
                 $post = new Post($data);
                 $this->postManager->add($post);
                 header('Location: index.php?p=adminpost#list');
             } else {
                 $this->renderview->generateView(array('name' => "AddPost", 'error' => $error), 'layoutPageAdmin');
             }
-        }
+        } else {
 
-        $this->renderview->generateView(array('name' => "AddPost"), 'layoutPageAdmin');
+            $this->renderview->generateView(array('name' => "AddPost"), 'layoutPageAdmin');
+        }
     }
 
     //Supprimer un article
     public function delete($postId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->postManager->delete($postId);
 
@@ -89,24 +90,25 @@ class ControllerAdminPost
 
         $post = $this->postManager->get($postId);
 
-        if (!empty($this->post->undirectUseSP($_POST)) && CSRF::validate($this->post->undirectUseSP($_POST))) {
-            $error = $this->postManager->errorPost(filter_var($_POST['title'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['chapo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), "update", filter_var($_POST['author'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        if (!empty($this->superGlobal->undirectUsePost()) && CSRF::validate($this->superGlobal->undirectUsePost())) {
+            $error = $this->postManager->errorPost($this->superGlobal->undirectUsePost('title'), $this->superGlobal->undirectUsePost('content'), $this->superGlobal->undirectUsePost('chapo'), "update", $this->superGlobal->undirectUsePost('author'));
             if (empty($error)) {
-                $data = $this->postManager->validateData(filter_var($_POST['title'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), isset($_POST['publish']) ? true : false, filter_var($_POST['chapo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['author'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['id'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $data = $this->postManager->validateData($this->superGlobal->undirectUsePost('title'), $this->superGlobal->undirectUsePost('content'), isset($_POST['publish']) ? true : false, $this->superGlobal->undirectUsePost('chapo'), $this->superGlobal->undirectUsePost('author'), $this->superGlobal->undirectUsePost('id'));
                 $post = new Post($data);
                 $this->postManager->update($post);
                 header('Location: index.php?p=adminpost#list');
             }
             $this->renderview->generateView(array('name' => "EditPost", 'error' => $error, 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
+        } else {
+            $this->renderview->generateView(array('name' => "EditPost", 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
         }
-        $this->renderview->generateView(array('name' => "EditPost", 'function' => $post, 'nameFunction' => 'post'), 'layoutPageAdmin');
     }
 
     //Status publié
     public function published($postId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->postManager->published($postId);
         header('Location: index.php?p=adminpost#list');
@@ -116,7 +118,7 @@ class ControllerAdminPost
     public function draft($postId)
     {
         $this->areaAdmin->verifyAdmin();
-        $this->csrf->testCsrf(CSRF::validate($this->post->undirectUseSP($_POST)));
+        $this->csrf->testCsrf(CSRF::validate($this->superGlobal->undirectUsePost()));
 
         $this->postManager->draft($postId);
         header('Location: index.php?p=adminpost#list');

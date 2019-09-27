@@ -23,17 +23,18 @@ class ControllerMessage
     //Ajouter un message
     public function addMessage()
     {
-        if (!empty($this->superGlobal->undirectUseSP($_POST))) {
-            $error = $this->messageManager->errorMessage(filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['surname'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), fitler_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), "add");
+        if (!empty($this->superGlobal->undirectUsePost())) {
+            $error = $this->messageManager->errorMessage($this->superGlobal->undirectUsePost('content'), $this->superGlobal->undirectUsePost('surname'), $this->superGlobal->undirectUsePost('name'), $this->superGlobal->undirectUsePost('email'), "add");
 
             if (empty($error)) {
-                $data = $this->messageManager->validateData(filter_var($_POST['content'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['surname'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS), filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                $data = $this->messageManager->validateData($this->superGlobal->undirectUsePost('content'), $this->superGlobal->undirectUsePost('surname'), $this->superGlobal->undirectUsePost('name'), $this->superGlobal->undirectUsePost('email'));
                 $message = new Message($data);
                 $this->messageManager->add($message);
 
                 $this->renderview->generateView(array('name' => "MessageSend"), 'layout');
+            } else {
+                $this->renderview->generateView(array('name' => "Error", 'function' => "Le message est vide. Veuillez remplir correctement le formulaire", 'nameFunction' => 'msgError'), 'layout');
             }
-            $this->renderview->generateView(array('name' => "Error", 'function' => "Le message est vide. Veuillez remplir correctement le formulaire", 'nameFunction' => 'msgError'), 'layout');
         }
     }
 

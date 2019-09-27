@@ -36,6 +36,7 @@ class Router
 	private $ctrlAdminMessage;
 
 	private $renderview;
+	private $superGlobal;
 
 	public function __construct()
 	{
@@ -54,6 +55,7 @@ class Router
 		$this->ctrlAdminMessage = new ControllerAdminMessage();
 
 		$this->renderview = new ViewManager();
+		$this->superGlobal = new SecuritySuperGlobal();
 	}
 
 	public function routerRequest()
@@ -117,29 +119,29 @@ class Router
 						$this->ctrlPost->listPost();
 						break;
 					case "post":
-						$postId = $this->getParam($_GET, 'id');
+						$postId = $this->getParam($this->superGlobal->undirectUseGet(), 'id');
 						$this->ctrlPost->post((int) $postId);
 						break;
 					case "adminpost":
 						$this->ctrlAdminPost->listPost();
 						break;
 					case "delete":
-						$postId = $this->getParam($_POST, 'id');
+						$postId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminPost->delete((int) $postId);
 						break;
 					case "addpost":
 						$this->ctrlAdminPost->addPost();
 						break;
 					case "unpublish":
-						$postId = $this->getParam($_POST, 'id');
+						$postId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminPost->draft((int) $postId);
 						break;
 					case "publish":
-						$postId = $this->getParam($_POST, 'id');
+						$postId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminPost->published((int) $postId);
 						break;
 					case 'editpost':
-						$postId = $this->getParam($_POST, 'id');
+						$postId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminPost->editPost((int) $postId);
 						break;
 					default:
@@ -151,7 +153,7 @@ class Router
 			if (filter_input(INPUT_GET, 'c')) {
 				switch (filter_input(INPUT_GET, 'c')) {
 					case "addcomment":
-						$commentId = $this->getParam($_GET, 'id');
+						$commentId = $this->getParam($this->superGlobal->undirectUseGet(), 'id');
 						$this->ctrlComment->addComment((int) $commentId);
 						break;
 					case "admincomment":
@@ -161,19 +163,19 @@ class Router
 						$this->ctrlAdminComment->listCommentUnvalidate();
 						break;
 					case "delete":
-						$commentId = $this->getParam($_POST, 'id');
+						$commentId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminComment->delete((int) $commentId);
 						break;
 					case "unvalidate":
-						$commentId = $this->getParam($_POST, 'id');
+						$commentId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminComment->unvalidate((int) $commentId);
 						break;
 					case "validate":
-						$commentId = $this->getParam($_POST, 'id');
+						$commentId = $this->getParam($this->superGlobal->undirectUsePost(), 'id');
 						$this->ctrlAdminComment->validate((int) $commentId);
 						break;
 					case "comment":
-						$commentId = $this->getParam($_GET, 'id');
+						$commentId = $this->getParam($this->superGlobal->undirectUseGet(), 'id');
 						$this->ctrlAdminComment->comment((int) $commentId);
 						break;
 					default:
@@ -189,11 +191,11 @@ class Router
 						$this->ctrlAdminMessage->listMessage();
 						break;
 					case "message":
-						$messageId = $this->getParam($_GET, 'id');
+						$messageId = $this->getParam($this->superGlobal->undirectUseGet(), 'id');
 						$this->ctrlAdminMessage->message((int) $messageId);
 						break;
 					case "answermessage":
-						$messageId = $this->getParam($_GET, 'id');
+						$messageId = $this->getParam($this->superGlobal->undirectUseGet(), 'id');
 						$this->ctrlAdminMessage->answerMessage((int) $messageId);
 						break;
 					case "addmessage":
@@ -208,7 +210,7 @@ class Router
 				}
 			}
 			//Action par défaut
-			if (empty($_GET)) {
+			if (empty($this->superGlobal->undirectUseGet())) {
 				$this->home();
 			}
 		} catch (Exception $e) {
