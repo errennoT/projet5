@@ -27,11 +27,11 @@ class ControllerLogin
             $authenticate = $this->_userManager->authenticate($this->superGlobal->undirectUsePost('login'), $this->superGlobal->undirectUsePost('password'));
             switch ($authenticate) {
                 case "user":
-                    $this->superGlobal->undirectUseSession('user', $this->superGlobal->undirectUsePost('login'));
+                    $_SESSION['user'] = $this->superGlobal->undirectUsePost('login');
                     header('Location: index.php');
                     break;
                 case "admin":
-                    $this->superGlobal->undirectUseSession('admin', $this->superGlobal->undirectUsePost('login'));
+                    $_SESSION['admin'] = $this->superGlobal->undirectUsePost('login');
                     header('Location: index.php');
                     break;
                 default:

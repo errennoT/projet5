@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?= htmlentities($title) ?></title>
+  <title><?= $this->clean($title) ?></title>
 
   <!-- Custom fonts for this theme -->
   <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 
   <!-- Theme CSS -->
   <?php $file = 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'freelancer.min.css'; ?>
-  <link href="<?= htmlentities($file) ?>" rel="stylesheet">
+  <link href="<?= $this->clean($file) ?>" rel="stylesheet">
 
 
 </head>
@@ -66,14 +66,14 @@
   <!-- Masthead -->
   <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
-      <?=htmlspecialchars($logo, ENT_QUOTES, 'UTF-8', false) ?>
-      <h1 class="masthead-heading text-uppercase mb-0"><?= htmlspecialchars($header, ENT_QUOTES, 'UTF-8', false) ?></h1>
+      <?= $this->clean($logo) ?>
+      <h1 class="masthead-heading text-uppercase mb-0"><?= $this->clean($header) ?></h1>
     </div>
   </header>
 
   <!-- Page blog header -->
   <section id="list" class="page-section">
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"><?= htmlspecialchars($subheader, ENT_QUOTES, 'UTF-8', false) ?></h2>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"><?= $this->clean($subheader) ?></h2>
 
     <div class="divider-custom">
       <div class="divider-custom-line"></div>
@@ -99,7 +99,7 @@
 
     <!-- Content -->
     <div>
-      <?= html_entity_decode($content) ?>
+      <?= $content ?>
     </div>
 
   </section>

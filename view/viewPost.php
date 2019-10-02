@@ -47,9 +47,9 @@
     <?php foreach ($comments as $comment) : ?>
       <div class='row'>
         <div class='col-lg-12 col-md-12 mx-auto'>
-          <a href="index.php?p=post&id=<?= htmlentities($comment->id()); ?>"></a>
-          <p>Commenté par <strong><?= htmlspecialchars($comment->author(), ENT_QUOTES, 'UTF-8', false) ?></strong> le <?= htmlspecialchars($comment->date()) ?></p>
-          <p><?= htmlspecialchars($comment->content(), ENT_QUOTES, 'UTF-8', false) ?> <br>
+          <a href="index.php?p=post&id=<?= $this->clean($comment->id()); ?>"></a>
+          <p>Commenté par <strong><?= $this->clean($comment->author()) ?></strong> le <?= $this->clean($comment->date()) ?></p>
+          <p><?= $this->clean($comment->content()) ?> <br>
             _________________________________________</p>
         </div>
       </div>
@@ -58,7 +58,7 @@
   </div>
 
   <?php if ($this->superGlobal->undirectUseSession('user') || $this->superGlobal->undirectUseSession('admin')) : ?>
-    <form class="container" action="index.php?c=addcomment&id=<?= htmlentities($post->id()) ?>" method="POST">
+    <form class="container" action="index.php?c=addcomment&id=<?= $this->clean($post->id()) ?>" method="POST">
       <div class="form-group">
         <label for="content">Commentaire</label>
         <textarea type="text" class="form-control" name="contentComment" placeholder="Votre commentaire..." rows="5"></textarea>

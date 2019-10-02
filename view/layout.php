@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?= $title ?></title>
+  <title><?= $this->clean($title) ?></title>
 
   <!-- Custom fonts for this theme -->
   <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 
   <!-- Theme CSS -->
   <?php $file = 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'freelancer.min.css'; ?>
-  <link href="<?= $file ?>" rel="stylesheet">
+  <link href="<?= $this->clean($file) ?>" rel="stylesheet">
 
 
 </head>
@@ -67,7 +67,7 @@
   <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
       <?= $logo ?>
-      <h1 class="masthead-heading text-uppercase mb-0"><?= $header ?></h1>
+      <h1 class="masthead-heading text-uppercase mb-0"><?= $this->clean($header) ?></h1>
       <?= $subheader ?>
     </div>
   </header>

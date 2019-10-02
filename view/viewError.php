@@ -14,7 +14,7 @@
 
     <div class="container alert alert-danger">
         <?php if (isset($msgError)) : ?>
-            Erreur: <?= htmlentities($msgError) ?>
+            Erreur: <?= $this->clean($msgError) ?>
         <?php else : ?>
             Erreur le lien est invalide
         <?php endif ?>

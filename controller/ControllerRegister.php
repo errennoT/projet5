@@ -30,8 +30,8 @@ class ControllerRegister
                 $user = new User($data);
                 $error = 'succes';
                 $this->_userManager->add($user);
-                $this->superGlobal->undirectUsePost('login', "");
-                $this->superGlobal->undirectUsePost('email', "");
+                $this->superGlobal->undirectUsePost('login');
+                $this->superGlobal->undirectUsePost('email');
 
                 $this->renderview->generateView(array('name' => "Add", 'error' => $error), 'layout');
             }

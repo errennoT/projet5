@@ -5,14 +5,12 @@ namespace Projet5\Service;
 class SecuritySuperGlobal
 {
 
-    public function undirectUsePost($data = null, $result = null)
+    public function undirectUsePost($data = null)
     {
         if ($data === null) {
             return $_POST;
-        } elseif (isset($result)) {
-            return filter_var($_POST[$data] = $result, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         }
-        return filter_var($_POST[$data], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return filter_input(INPUT_POST, $data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
     public function undirectUseGet($data = null)
@@ -20,8 +18,7 @@ class SecuritySuperGlobal
         if ($data === null) {
             return $_GET;
         }
-
-        return filter_var($_GET[$data], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return filter_input(INPUT_GET, $data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
     public function undirectUseSession($data = null, $result = null)
@@ -40,7 +37,6 @@ class SecuritySuperGlobal
         if ($data === null) {
             return $_SERVER;
         }
-
-        return filter_var($_SERVER[$data], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return filter_input(INPUT_SERVER, $data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 }
