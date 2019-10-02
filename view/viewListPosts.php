@@ -16,14 +16,14 @@
     <?php foreach ($posts as $post) : ?>
     <div class='row'>
       <div class='col-lg-12 col-md-12 mx-auto'>
-        <a href="index.php?p=post&id=<?= htmlentities($post->id()); ?>">
-          <h2><?= htmlspecialchars($post->title(), ENT_QUOTES, 'UTF-8', false); ?></h2>
-          <?php if (htmlspecialchars($post->updated(), ENT_QUOTES, 'UTF-8', false) === "00/00/0000 à 00h00") : ?>
-            </a><?= 'Posté le ' . htmlspecialchars($post->date(), ENT_QUOTES, 'UTF-8', false); ?>
+        <a href="index.php?p=post&id=<?= $this->clean($post->id()); ?>">
+          <h2><?= $this->clean($post->title()); ?></h2>
+          <?php if ($this->clean($post->updated()) === "00/00/0000 à 00h00") : ?>
+            </a><?= 'Posté le ' . $this->clean($post->date()); ?>
           <? else : ?>
-            </a><?= 'Modifié le ' . htmlspecialchars($post->updated(), ENT_QUOTES, 'UTF-8', false); ?>
+            </a><?= 'Modifié le ' . $this->clean($post->updated()); ?>
           <?php endif ?>
-        <p>Par <strong><?= htmlspecialchars($post->author(), ENT_QUOTES, 'UTF-8', false) ?></strong></p>
+        <p>Par <strong><?= $this->clean($post->author()) ?></strong></p>
         <!--Mis en place du chapo -->
         <p><?= substr($this->clean($post->chapo()), 0, 200) . '...'; ?></p>
       </div>

@@ -3,19 +3,19 @@
 
   <?php if(isset($this->error['title'])): ?>
     <div class="container alert alert-danger">
-      <?= htmlentities($this->error['title']) ?>
+      <?= $this->clean($this->error['title']) ?>
     </div>
   <?php endif ?>
 
   <?php if(isset($this->error['chapo'])): ?>
     <div class="container alert alert-danger">
-      <?= htmlentities($this->error['chapo']) ?>
+      <?= $this->clean($this->error['chapo']) ?>
     </div>
   <?php endif?> 
 
   <?php if(isset($this->error['content'])): ?>
     <div class="container alert alert-danger">
-      <?= htmlentities($this->error['content']) ?>
+      <?= $this->clean($this->error['content']) ?>
     </div>
   <?php endif?> 
 
