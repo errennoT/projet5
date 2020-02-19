@@ -5,9 +5,9 @@ Les schémas UML sont dans le dossier uml
 
 ## Comment accéder à l'espace administrateur ?
 
-*Se connecter en tant qu'administrateur
-*login = administrateur / mdp= administrateur
-*Donne la possibilité de gérer les utilisateurs, les articles, les commentaires ainsi que les messages
+*Se connecter en tant qu'administrateur <br/>
+*login = administrateur / mdp= administrateur <br/>
+*Donne la possibilité de gérer les utilisateurs, les articles, les commentaires ainsi que les messages <br/>
 
 ## Comment ajouter un article?
 
